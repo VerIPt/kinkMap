@@ -18,7 +18,7 @@ const TABS = [
 export default function MainApp() {
   const [activeTab, setActiveTab] = useState<string>('events');
   const [searchValue, setSearchValue] = useState<string>('');
-  const [isGuest] = useState<boolean>(true);
+  const [isGuest, setIsGuest] = useState<boolean>(true);
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<FilterState>({
     categories: [],
@@ -28,6 +28,12 @@ export default function MainApp() {
     isOpenNow: false,
     hasEventsToday: false,
   });
+
+  // Check login status on component mount
+  React.useEffect(() => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    setIsGuest(!isLoggedIn);
+  }, []);
 
   // Filter logic
   const filteredVenues = MOCK_VENUES.filter(venue => {

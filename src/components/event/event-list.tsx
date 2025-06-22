@@ -38,7 +38,10 @@ export function EventList({ events, isGuest = false }: EventListProps) {
               <div className="text-sm text-text-secondary mb-4">
                 Registriere dich kostenlos
               </div>
-              <button className="bg-primary text-white px-4 py-2 rounded-lg font-medium">
+              <button 
+                onClick={() => window.location.href = '/auth/register'}
+                className="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-600 transition-colors"
+              >
                 Registrieren
               </button>
             </div>

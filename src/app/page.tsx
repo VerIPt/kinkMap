@@ -25,7 +25,7 @@ export default function LandingPage() {
             <Button 
               className="w-full h-12 text-lg font-semibold"
               variant="primary"
-              onClick={() => window.location.href = '/onboarding'}
+              onClick={() => window.location.href = '/auth/register'}
             >
               Registrieren
             </Button>

@@ -1,116 +1,210 @@
-import { Venue, Event, VenueCategory, User, SearchFilters } from './types';
+import { Venue, VenueCategory } from './types';
 
 export const VENUE_CATEGORIES: VenueCategory[] = [
   {
     id: '1',
-    name: 'clubs',
-    displayName: 'Clubs',
-    description: 'Fetisch- und Swingerclubs',
-    icon: '🎪',
+    name: 'pornokinos',
+    displayName: 'Pornokinos',
+    description: 'Adult Kinos und Theater',
+    icon: '🎬',
     color: '#d32f2f',
   },
   {
     id: '2',
     name: 'bars',
-    displayName: 'Bars & Lounges',
-    description: 'LGBTQ+ und Kink-freundliche Bars',
+    displayName: 'Bars',
+    description: 'Gay/Hetero/Trans/LGBTQ+/Kink Bars',
     icon: '🍸',
     color: '#4ecdc4',
   },
   {
     id: '3',
-    name: 'shops',
-    displayName: 'Shops',
-    description: 'Sexshops und Adult Stores',
+    name: 'sexshops',
+    displayName: 'Sexshops',
+    description: 'Adult Stores und Shops',
     icon: '🛍️',
     color: '#45b7d1',
   },
   {
     id: '4',
-    name: 'cinemas',
-    displayName: 'Pornokinos',
-    description: 'Adult Kinos',
-    icon: '🎬',
-    color: '#96ceb4',
+    name: 'swingerclubs',
+    displayName: 'Swingerclubs',
+    description: 'Clubs für Paare und Singles',
+    icon: '💑',
+    color: '#ff6b6b',
   },
   {
     id: '5',
-    name: 'saunas',
-    displayName: 'Saunas & Bäder',
-    description: 'Saunas und Bathhouses',
-    icon: '🧖‍♂️',
-    color: '#feca57',
+    name: 'fetischclubs',
+    displayName: 'Fetischclubs',
+    description: 'Fetisch- und BDSM-Clubs (z.B. KitKat)',
+    icon: '🎭',
+    color: '#96ceb4',
   },
   {
     id: '6',
-    name: 'studios',
-    displayName: 'Studios',
-    description: 'BDSM Studios und private Spaces',
-    icon: '🏠',
+    name: 'clubs',
+    displayName: 'Clubs',
+    description: 'Gay/Hetero/Trans/LGBTQ+/Kink Clubs',
+    icon: '🎪',
+    color: '#feca57',
+  },
+  {
+    id: '7',
+    name: 'gloryholes',
+    displayName: 'Glory Holes',
+    description: 'Anonyme Begegnungen',
+    icon: '🕳️',
     color: '#ff9ff3',
+  },
+  {
+    id: '8',
+    name: 'bdsm-studios',
+    displayName: 'BDSM Studios',
+    description: 'Professionelle BDSM Studios',
+    icon: '🏠',
+    color: '#a55eea',
+  },
+  {
+    id: '9',
+    name: 'saunas',
+    displayName: 'Saunas/Bathhouses',
+    description: 'Gay-Szene Saunas und Bäder',
+    icon: '🧖‍♂️',
+    color: '#26de81',
+  },
+  {
+    id: '10',
+    name: 'dungeons',
+    displayName: 'Dungeons/Play Spaces',
+    description: 'Private BDSM-Räume',
+    icon: '⛓️',
+    color: '#fd79a8',
+  },
+  {
+    id: '11',
+    name: 'adult-theaters',
+    displayName: 'Adult Theaters/Shows',
+    description: 'Burlesque, Strip Shows, etc.',
+    icon: '🎭',
+    color: '#fdcb6e',
   },
 ];
 
 export const MOCK_VENUES: Venue[] = [
+  // Pornokinos (2)
   {
     id: '1',
-    name: 'Velvet Dreams',
-    slug: 'velvet-dreams',
-    description: 'Berlins exklusiver Fetischclub in Mitte. Dress Code: Fetisch, Latex, Leder oder stylisch schwarz.',
-    category: VENUE_CATEGORIES[0],
+    name: 'Cinema Noir',
+    slug: 'cinema-noir',
+    description: 'Diskretes Adult-Kino in Charlottenburg mit komfortablen Sitzen und hochwertiger Ausstattung.',
+    category: VENUE_CATEGORIES[0], // Pornokinos
     location: {
-      lat: 52.5127,
-      lng: 13.4116,
-      address: 'Friedrichstraße 145',
+      lat: 52.5048,
+      lng: 13.3089,
+      address: 'Wilmersdorfer Straße 42',
       city: 'Berlin',
-      postalCode: '10117',
+      postalCode: '10627',
     },
     contact: {
-      website: 'https://www.velvet-dreams.de',
-      instagram: '@velvetdreams_berlin',
+      website: 'https://www.cinema-noir.de',
+      instagram: '@cinema_noir_berlin',
     },
     features: {
-      parking: false,
+      parking: true,
       wheelchair: false,
       lockers: true,
     },
-    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
-    kinks: ['bdsm', 'fetish', 'latex', 'leather'],
-    ageRestriction: 21,
-    dressCode: 'Fetisch, Latex, Leder oder stylisch schwarz. Kein Street Wear!',
+    orientations: ['hetero', 'gay'],
+    kinks: ['vanilla'],
+    ageRestriction: 18,
     openingHours: {
-      thursday: '23:00-06:00',
-      friday: '23:00-08:00',
-      saturday: '23:00-10:00',
-      sunday: 'closed',
-      monday: 'closed',
-      tuesday: 'closed',
-      wednesday: 'closed',
+      monday: '14:00-02:00',
+      tuesday: '14:00-02:00',
+      wednesday: '14:00-02:00',
+      thursday: '14:00-02:00',
+      friday: '14:00-04:00',
+      saturday: '12:00-04:00',
+      sunday: '14:00-02:00',
     },
     media: {
-      coverImageUrl: '/images/venues/velvet-dreams-cover.jpg',
-      images: ['/images/venues/velvet-dreams-1.jpg', '/images/venues/velvet-dreams-2.jpg'],
+      coverImageUrl: '/images/venues/cinema-noir-cover.jpg',
+      images: [],
     },
     pricing: {
-      entryFeeMin: 15,
-      entryFeeMax: 25,
+      entryFeeMin: 8,
+      entryFeeMax: 15,
       currency: 'EUR',
     },
     rating: {
-      avg: 4.8,
-      count: 124,
+      avg: 4.1,
+      count: 67,
     },
-    subscriptionTier: 'premium',
-    isFeatured: true,
+    subscriptionTier: 'basic',
+    isFeatured: false,
     isVerified: true,
-    distance: 1.2,
+    distance: 4.2,
   },
   {
     id: '2',
-    name: 'Rainbow Lounge',
-    slug: 'rainbow-lounge',
-    description: 'LGBTQ+ Bar in Neukölln mit vielfältigen Events und offener Atmosphäre.',
-    category: VENUE_CATEGORIES[1],
+    name: 'Velvet Screen',
+    slug: 'velvet-screen',
+    description: 'Gemütliches Adult-Theater in Kreuzberg mit entspannter Atmosphäre.',
+    category: VENUE_CATEGORIES[0], // Pornokinos
+    location: {
+      lat: 52.4967,
+      lng: 13.4234,
+      address: 'Oranienstraße 178',
+      city: 'Berlin',
+      postalCode: '10999',
+    },
+    contact: {
+      website: 'https://www.velvet-screen.de',
+      instagram: '@velvetscreen_berlin',
+    },
+    features: {
+      parking: false,
+      wheelchair: true,
+      lockers: false,
+    },
+    orientations: ['hetero', 'gay', 'lesbian'],
+    kinks: ['vanilla'],
+    ageRestriction: 18,
+    openingHours: {
+      monday: '16:00-01:00',
+      tuesday: '16:00-01:00',
+      wednesday: '16:00-01:00',
+      thursday: '16:00-01:00',
+      friday: '16:00-03:00',
+      saturday: '14:00-03:00',
+      sunday: '16:00-01:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/velvet-screen-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 6,
+      entryFeeMax: 12,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 3.9,
+      count: 34,
+    },
+    subscriptionTier: 'basic',
+    isFeatured: false,
+    isVerified: true,
+    distance: 3.8,
+  },
+
+  // Bars (2)
+  {
+    id: '3',
+    name: 'Midnight Lounge',
+    slug: 'midnight-lounge',
+    description: 'LGBTQ+ freundliche Bar in Neukölln mit vielfältigen Events und offener Atmosphäre.',
+    category: VENUE_CATEGORIES[1], // Bars
     location: {
       lat: 52.4875,
       lng: 13.4342,
@@ -119,8 +213,8 @@ export const MOCK_VENUES: Venue[] = [
       postalCode: '12045',
     },
     contact: {
-      website: 'https://www.rainbow-lounge-berlin.de',
-      instagram: '@rainbow_lounge_neukölln',
+      website: 'https://www.midnight-lounge-berlin.de',
+      instagram: '@midnight_lounge_neukolln',
     },
     features: {
       parking: true,
@@ -136,7 +230,7 @@ export const MOCK_VENUES: Venue[] = [
       sunday: '18:00-01:00',
     },
     media: {
-      coverImageUrl: '/images/venues/rainbow-lounge-cover.jpg',
+      coverImageUrl: '/images/venues/midnight-lounge-cover.jpg',
       images: [],
     },
     pricing: {
@@ -154,108 +248,11 @@ export const MOCK_VENUES: Venue[] = [
     distance: 2.8,
   },
   {
-    id: '3',
-    name: 'Dark Desires',
-    slug: 'dark-desires',
-    description: 'Eleganter Fetischclub in Berlin Mitte mit exklusiver Atmosphäre.',
-    category: VENUE_CATEGORIES[0],
-    location: {
-      lat: 52.5200,
-      lng: 13.4050,
-      address: 'Unter den Linden 88',
-      city: 'Berlin',
-      postalCode: '10117',
-    },
-    contact: {
-      website: 'https://www.dark-desires.berlin',
-      instagram: '@darkdesires_berlin',
-    },
-    features: {
-      parking: true,
-      wheelchair: false,
-      lockers: true,
-    },
-    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
-    kinks: ['bdsm', 'fetish', 'latex', 'leather'],
-    ageRestriction: 21,
-    dressCode: 'Fetisch, Latex, Leder oder stylisch schwarz',
-    openingHours: {
-      friday: '22:00-06:00',
-      saturday: '22:00-06:00',
-    },
-    media: {
-      coverImageUrl: '/images/venues/dark-desires-cover.jpg',
-      images: [],
-    },
-    pricing: {
-      entryFeeMin: 20,
-      entryFeeMax: 30,
-      currency: 'EUR',
-    },
-    rating: {
-      avg: 4.7,
-      count: 67,
-    },
-    subscriptionTier: 'premium',
-    isFeatured: true,
-    isVerified: true,
-    distance: 0.8,
-  },
-  {
     id: '4',
-    name: 'Crimson Nights',
-    slug: 'crimson-nights',
-    description: 'Gehobener Swingerclub in Charlottenburg für diskrete Begegnungen.',
-    category: VENUE_CATEGORIES[0],
-    location: {
-      lat: 52.5065,
-      lng: 13.3249,
-      address: 'Kantstraße 156',
-      city: 'Berlin',
-      postalCode: '10623',
-    },
-    contact: {
-      website: 'https://www.crimson-nights.de',
-      instagram: '@crimsonnights_berlin',
-    },
-    features: {
-      parking: true,
-      wheelchair: true,
-      lockers: true,
-    },
-    orientations: ['hetero', 'queer'],
-    kinks: ['swinger', 'couples'],
-    ageRestriction: 21,
-    dressCode: 'Elegant oder sexy, keine Freizeitkleidung',
-    openingHours: {
-      thursday: '21:00-04:00',
-      friday: '21:00-05:00',
-      saturday: '21:00-05:00',
-    },
-    media: {
-      coverImageUrl: '/images/venues/crimson-nights-cover.jpg',
-      images: [],
-    },
-    pricing: {
-      entryFeeMin: 25,
-      entryFeeMax: 45,
-      currency: 'EUR',
-    },
-    rating: {
-      avg: 4.5,
-      count: 156,
-    },
-    subscriptionTier: 'premium',
-    isFeatured: false,
-    isVerified: true,
-    distance: 3.2,
-  },
-  {
-    id: '5',
-    name: 'Urban Temptations',
-    slug: 'urban-temptations',
-    description: 'Moderner Adult Store in Prenzlauer Berg mit großer Auswahl.',
-    category: VENUE_CATEGORIES[2],
+    name: 'Red Rose Bar',
+    slug: 'red-rose-bar',
+    description: 'Kink-freundliche Cocktailbar in Prenzlauer Berg mit diskreter Atmosphäre.',
+    category: VENUE_CATEGORIES[1], // Bars
     location: {
       lat: 52.5311,
       lng: 13.4103,
@@ -264,8 +261,60 @@ export const MOCK_VENUES: Venue[] = [
       postalCode: '10119',
     },
     contact: {
-      website: 'https://www.urban-temptations.de',
-      instagram: '@urban_temptations',
+      website: 'https://www.red-rose-bar.de',
+      instagram: '@redrose_bar',
+    },
+    features: {
+      parking: false,
+      wheelchair: true,
+      lockers: false,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'fetish'],
+    ageRestriction: 21,
+    openingHours: {
+      wednesday: '19:00-02:00',
+      thursday: '19:00-02:00',
+      friday: '19:00-04:00',
+      saturday: '19:00-04:00',
+      sunday: '18:00-01:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/red-rose-bar-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 0,
+      entryFeeMax: 8,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.4,
+      count: 76,
+    },
+    subscriptionTier: 'standard',
+    isFeatured: false,
+    isVerified: true,
+    distance: 1.8,
+  },
+
+  // Sexshops (2)
+  {
+    id: '5',
+    name: 'Crimson Desires',
+    slug: 'crimson-desires',
+    description: 'Moderner Adult Store in Friedrichshain mit großer Auswahl und diskreter Beratung.',
+    category: VENUE_CATEGORIES[2], // Sexshops
+    location: {
+      lat: 52.5134,
+      lng: 13.4597,
+      address: 'Simon-Dach-Straße 23',
+      city: 'Berlin',
+      postalCode: '10245',
+    },
+    contact: {
+      website: 'https://www.crimson-desires.de',
+      instagram: '@crimson_desires',
     },
     features: {
       parking: false,
@@ -285,7 +334,7 @@ export const MOCK_VENUES: Venue[] = [
       sunday: '12:00-18:00',
     },
     media: {
-      coverImageUrl: '/images/venues/urban-temptations-cover.jpg',
+      coverImageUrl: '/images/venues/crimson-desires-cover.jpg',
       images: [],
     },
     pricing: {
@@ -300,28 +349,898 @@ export const MOCK_VENUES: Venue[] = [
     subscriptionTier: 'basic',
     isFeatured: false,
     isVerified: true,
-    distance: 1.8,
+    distance: 3.4,
+  },
+  {
+    id: '6',
+    name: 'Paradise Boutique',
+    slug: 'paradise-boutique',
+    description: 'Eleganter Adult Store in Mitte mit exklusiven Produkten und persönlicher Beratung.',
+    category: VENUE_CATEGORIES[2], // Sexshops
+    location: {
+      lat: 52.5200,
+      lng: 13.4050,
+      address: 'Unter den Linden 88',
+      city: 'Berlin',
+      postalCode: '10117',
+    },
+    contact: {
+      website: 'https://www.paradise-boutique.de',
+      instagram: '@paradise_boutique_berlin',
+    },
+    features: {
+      parking: true,
+      wheelchair: true,
+      lockers: false,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['toys', 'lingerie', 'bdsm', 'luxury'],
+    ageRestriction: 18,
+    openingHours: {
+      monday: '10:00-19:00',
+      tuesday: '10:00-19:00',
+      wednesday: '10:00-19:00',
+      thursday: '10:00-19:00',
+      friday: '10:00-20:00',
+      saturday: '10:00-20:00',
+      sunday: '12:00-18:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/paradise-boutique-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 0,
+      entryFeeMax: 0,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.7,
+      count: 145,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: true,
+    isVerified: true,
+    distance: 0.8,
+  },
+
+  // Swingerclubs (2)
+  {
+    id: '7',
+    name: 'Velvet Dreams',
+    slug: 'velvet-dreams',
+    description: 'Gehobener Swingerclub in Charlottenburg für diskrete Begegnungen und entspannte Atmosphäre.',
+    category: VENUE_CATEGORIES[3], // Swingerclubs
+    location: {
+      lat: 52.5065,
+      lng: 13.3249,
+      address: 'Kantstraße 156',
+      city: 'Berlin',
+      postalCode: '10623',
+    },
+    contact: {
+      website: 'https://www.velvet-dreams.de',
+      instagram: '@velvetdreams_berlin',
+    },
+    features: {
+      parking: true,
+      wheelchair: true,
+      lockers: true,
+    },
+    orientations: ['hetero', 'queer'],
+    kinks: ['swinger', 'couples'],
+    ageRestriction: 21,
+    dressCode: 'Elegant oder sexy, keine Freizeitkleidung',
+    openingHours: {
+      thursday: '21:00-04:00',
+      friday: '21:00-05:00',
+      saturday: '21:00-05:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/velvet-dreams-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 25,
+      entryFeeMax: 45,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.5,
+      count: 156,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: false,
+    isVerified: true,
+    distance: 3.2,
+  },
+  {
+    id: '8',
+    name: 'Secret Garden',
+    slug: 'secret-garden',
+    description: 'Exklusiver Swingerclub in Tempelhof mit Garten und Pool für unvergessliche Nächte.',
+    category: VENUE_CATEGORIES[3], // Swingerclubs
+    location: {
+      lat: 52.4599,
+      lng: 13.3854,
+      address: 'Tempelhofer Damm 67',
+      city: 'Berlin',
+      postalCode: '12101',
+    },
+    contact: {
+      website: 'https://www.secret-garden-berlin.de',
+      instagram: '@secretgarden_berlin',
+    },
+    features: {
+      parking: true,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'queer'],
+    kinks: ['swinger', 'couples', 'outdoor'],
+    ageRestriction: 23,
+    dressCode: 'Elegant, sexy oder Badebekleidung',
+    openingHours: {
+      friday: '20:00-06:00',
+      saturday: '20:00-08:00',
+      sunday: '18:00-02:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/secret-garden-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 35,
+      entryFeeMax: 60,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.3,
+      count: 98,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: true,
+    isVerified: true,
+    distance: 5.1,
+  },
+
+  // Fetischclubs (2)
+  {
+    id: '9',
+    name: 'Club Obsidian',
+    slug: 'club-obsidian',
+    description: 'Berlins exklusiver Fetischclub in Mitte. Dress Code: Fetisch, Latex, Leder oder stylisch schwarz.',
+    category: VENUE_CATEGORIES[4], // Fetischclubs
+    location: {
+      lat: 52.5127,
+      lng: 13.4116,
+      address: 'Friedrichstraße 145',
+      city: 'Berlin',
+      postalCode: '10117',
+    },
+    contact: {
+      website: 'https://www.club-obsidian.de',
+      instagram: '@club_obsidian_berlin',
+    },
+    features: {
+      parking: false,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'fetish', 'latex', 'leather'],
+    ageRestriction: 21,
+    dressCode: 'Fetisch, Latex, Leder oder stylisch schwarz. Kein Street Wear!',
+    openingHours: {
+      thursday: '23:00-06:00',
+      friday: '23:00-08:00',
+      saturday: '23:00-10:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/club-obsidian-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 15,
+      entryFeeMax: 25,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.8,
+      count: 124,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: true,
+    isVerified: true,
+    distance: 1.2,
+  },
+  {
+    id: '10',
+    name: 'Dark Diamond',
+    slug: 'dark-diamond',
+    description: 'Eleganter Fetischclub in Schöneberg mit internationaler Ausstrahlung und striktem Dress Code.',
+    category: VENUE_CATEGORIES[4], // Fetischclubs
+    location: {
+      lat: 52.4987,
+      lng: 13.3563,
+      address: 'Kurfürstenstraße 101',
+      city: 'Berlin',
+      postalCode: '10787',
+    },
+    contact: {
+      website: 'https://www.dark-diamond.de',
+      instagram: '@darkdiamond_berlin',
+    },
+    features: {
+      parking: true,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'fetish', 'latex', 'leather'],
+    ageRestriction: 21,
+    dressCode: 'Fetisch, Latex, Leder oder stylisch schwarz',
+    openingHours: {
+      friday: '22:00-06:00',
+      saturday: '22:00-06:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/dark-diamond-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 20,
+      entryFeeMax: 30,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.7,
+      count: 67,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: true,
+    isVerified: true,
+    distance: 2.1,
+  },
+
+  // Clubs (2)
+  {
+    id: '11',
+    name: 'Pulse Club',
+    slug: 'pulse-club',
+    description: 'Moderner LGBTQ+ Club in Friedrichshain mit großer Tanzfläche und vielfältigen Events.',
+    category: VENUE_CATEGORIES[5], // Clubs
+    location: {
+      lat: 52.5134,
+      lng: 13.4597,
+      address: 'Warschauer Straße 89',
+      city: 'Berlin',
+      postalCode: '10243',
+    },
+    contact: {
+      website: 'https://www.pulse-club-berlin.de',
+      instagram: '@pulse_club_berlin',
+    },
+    features: {
+      parking: false,
+      wheelchair: true,
+      lockers: true,
+    },
+    orientations: ['gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['vanilla', 'party'],
+    ageRestriction: 18,
+    openingHours: {
+      friday: '23:00-06:00',
+      saturday: '23:00-08:00',
+      sunday: '22:00-05:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/pulse-club-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 10,
+      entryFeeMax: 18,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.5,
+      count: 234,
+    },
+    subscriptionTier: 'standard',
+    isFeatured: false,
+    isVerified: true,
+    distance: 3.4,
+  },
+  {
+    id: '12',
+    name: 'Neon Nights',
+    slug: 'neon-nights',
+    description: 'Kink-freundlicher Club in Wedding mit Underground-Vibe und offener Community.',
+    category: VENUE_CATEGORIES[5], // Clubs
+    location: {
+      lat: 52.5479,
+      lng: 13.3542,
+      address: 'Müllerstraße 234',
+      city: 'Berlin',
+      postalCode: '13353',
+    },
+    contact: {
+      website: 'https://www.neon-nights.de',
+      instagram: '@neonnights_wedding',
+    },
+    features: {
+      parking: true,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'fetish', 'alternative'],
+    ageRestriction: 21,
+    dressCode: 'Alternative, Fetisch oder stylisch schwarz',
+    openingHours: {
+      thursday: '22:00-05:00',
+      friday: '22:00-07:00',
+      saturday: '22:00-08:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/neon-nights-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 12,
+      entryFeeMax: 20,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.2,
+      count: 167,
+    },
+    subscriptionTier: 'standard',
+    isFeatured: false,
+    isVerified: true,
+    distance: 4.8,
+  },
+
+  // Glory Holes (2)
+  {
+    id: '13',
+    name: 'Anonymous Encounters',
+    slug: 'anonymous-encounters',
+    description: 'Diskreter Ort für anonyme Begegnungen in Tiergarten mit sauberer Ausstattung.',
+    category: VENUE_CATEGORIES[6], // Glory Holes
+    location: {
+      lat: 52.5147,
+      lng: 13.3501,
+      address: 'Potsdamer Straße 45',
+      city: 'Berlin',
+      postalCode: '10785',
+    },
+    contact: {
+      website: 'https://www.anonymous-encounters.de',
+    },
+    features: {
+      parking: false,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['gay'],
+    kinks: ['anonymous', 'cruising'],
+    ageRestriction: 18,
+    openingHours: {
+      monday: '12:00-22:00',
+      tuesday: '12:00-22:00',
+      wednesday: '12:00-22:00',
+      thursday: '12:00-02:00',
+      friday: '12:00-04:00',
+      saturday: '12:00-04:00',
+      sunday: '14:00-22:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/anonymous-encounters-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 8,
+      entryFeeMax: 15,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 3.8,
+      count: 45,
+    },
+    subscriptionTier: 'basic',
+    isFeatured: false,
+    isVerified: true,
+    distance: 2.5,
+  },
+  {
+    id: '14',
+    name: 'Hidden Desires',
+    slug: 'hidden-desires',
+    description: 'Privater Club für diskrete Begegnungen in Steglitz mit strengen Hygienestandards.',
+    category: VENUE_CATEGORIES[6], // Glory Holes
+    location: {
+      lat: 52.4567,
+      lng: 13.3234,
+      address: 'Schloßstraße 178',
+      city: 'Berlin',
+      postalCode: '12163',
+    },
+    contact: {
+      website: 'https://www.hidden-desires.de',
+    },
+    features: {
+      parking: true,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay'],
+    kinks: ['anonymous', 'discreet'],
+    ageRestriction: 21,
+    openingHours: {
+      monday: '14:00-23:00',
+      tuesday: '14:00-23:00',
+      wednesday: '14:00-23:00',
+      thursday: '14:00-02:00',
+      friday: '14:00-03:00',
+      saturday: '12:00-03:00',
+      sunday: '14:00-23:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/hidden-desires-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 12,
+      entryFeeMax: 20,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.0,
+      count: 28,
+    },
+    subscriptionTier: 'basic',
+    isFeatured: false,
+    isVerified: true,
+    distance: 6.2,
+  },
+
+  // BDSM Studios (2)
+  {
+    id: '15',
+    name: 'Dungeon Berlin',
+    slug: 'dungeon-berlin',
+    description: 'Professionelles BDSM Studio mit erfahrenen Dominas und hochwertiger Ausstattung.',
+    category: VENUE_CATEGORIES[7], // BDSM Studios
+    location: {
+      lat: 52.5234,
+      lng: 13.4113,
+      address: 'Torstraße 89',
+      city: 'Berlin',
+      postalCode: '10119',
+    },
+    contact: {
+      website: 'https://www.dungeon-berlin.de',
+      instagram: '@dungeon_berlin',
+    },
+    features: {
+      parking: false,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'domination', 'submission'],
+    ageRestriction: 21,
+    openingHours: {
+      monday: '14:00-22:00',
+      tuesday: '14:00-22:00',
+      wednesday: '14:00-22:00',
+      thursday: '14:00-22:00',
+      friday: '14:00-24:00',
+      saturday: '12:00-24:00',
+      sunday: 'closed',
+    },
+    media: {
+      coverImageUrl: '/images/venues/dungeon-berlin-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 50,
+      entryFeeMax: 150,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.6,
+      count: 43,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: false,
+    isVerified: true,
+    distance: 1.5,
+  },
+  {
+    id: '16',
+    name: 'Sanctuary Studio',
+    slug: 'sanctuary-studio',
+    description: 'Elegantes BDSM Studio in Wilmersdorf mit luxuriöser Ausstattung und diskreter Atmosphäre.',
+    category: VENUE_CATEGORIES[7], // BDSM Studios
+    location: {
+      lat: 52.4889,
+      lng: 13.3167,
+      address: 'Bundesallee 234',
+      city: 'Berlin',
+      postalCode: '10719',
+    },
+    contact: {
+      website: 'https://www.sanctuary-studio.de',
+      instagram: '@sanctuary_studio_berlin',
+    },
+    features: {
+      parking: true,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'domination', 'submission', 'luxury'],
+    ageRestriction: 25,
+    openingHours: {
+      tuesday: '15:00-23:00',
+      wednesday: '15:00-23:00',
+      thursday: '15:00-23:00',
+      friday: '15:00-01:00',
+      saturday: '13:00-01:00',
+      sunday: '15:00-22:00',
+      monday: 'closed',
+    },
+    media: {
+      coverImageUrl: '/images/venues/sanctuary-studio-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 80,
+      entryFeeMax: 200,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.9,
+      count: 31,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: true,
+    isVerified: true,
+    distance: 3.7,
+  },
+
+  // Saunas/Bathhouses (2)
+  {
+    id: '17',
+    name: 'Apollo Wellness',
+    slug: 'apollo-wellness',
+    description: 'Traditionelle Gay-Sauna in Schöneberg mit Dampfbad, Darkroom und entspannter Atmosphäre.',
+    category: VENUE_CATEGORIES[8], // Saunas/Bathhouses
+    location: {
+      lat: 52.4987,
+      lng: 13.3563,
+      address: 'Kurfürstenstraße 101',
+      city: 'Berlin',
+      postalCode: '10787',
+    },
+    contact: {
+      website: 'https://www.apollo-wellness.de',
+      instagram: '@apollo_wellness_berlin',
+    },
+    features: {
+      parking: false,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['gay'],
+    kinks: ['vanilla', 'cruising'],
+    ageRestriction: 18,
+    openingHours: {
+      monday: '12:00-02:00',
+      tuesday: '12:00-02:00',
+      wednesday: '12:00-02:00',
+      thursday: '12:00-02:00',
+      friday: '12:00-06:00',
+      saturday: '12:00-06:00',
+      sunday: '12:00-02:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/apollo-wellness-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 15,
+      entryFeeMax: 25,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.2,
+      count: 89,
+    },
+    subscriptionTier: 'standard',
+    isFeatured: false,
+    isVerified: true,
+    distance: 2.1,
+  },
+  {
+    id: '18',
+    name: 'Steam Dreams',
+    slug: 'steam-dreams',
+    description: 'Moderne Gay-Sauna in Pankow mit Pool, Whirlpool und großzügigen Entspannungsbereichen.',
+    category: VENUE_CATEGORIES[8], // Saunas/Bathhouses
+    location: {
+      lat: 52.5678,
+      lng: 13.4023,
+      address: 'Prenzlauer Allee 145',
+      city: 'Berlin',
+      postalCode: '10409',
+    },
+    contact: {
+      website: 'https://www.steam-dreams.de',
+      instagram: '@steamdreams_pankow',
+    },
+    features: {
+      parking: true,
+      wheelchair: true,
+      lockers: true,
+    },
+    orientations: ['gay'],
+    kinks: ['vanilla', 'wellness'],
+    ageRestriction: 18,
+    openingHours: {
+      monday: '14:00-01:00',
+      tuesday: '14:00-01:00',
+      wednesday: '14:00-01:00',
+      thursday: '14:00-01:00',
+      friday: '14:00-05:00',
+      saturday: '12:00-05:00',
+      sunday: '12:00-01:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/steam-dreams-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 18,
+      entryFeeMax: 28,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.5,
+      count: 112,
+    },
+    subscriptionTier: 'standard',
+    isFeatured: false,
+    isVerified: true,
+    distance: 5.8,
+  },
+
+  // Dungeons/Play Spaces (2)
+  {
+    id: '19',
+    name: 'Private Chambers',
+    slug: 'private-chambers',
+    description: 'Exklusive private BDSM-Räume in Mitte für diskrete Sessions und Events.',
+    category: VENUE_CATEGORIES[9], // Dungeons/Play Spaces
+    location: {
+      lat: 52.5200,
+      lng: 13.4050,
+      address: 'Hackescher Markt 12',
+      city: 'Berlin',
+      postalCode: '10178',
+    },
+    contact: {
+      website: 'https://www.private-chambers.de',
+      instagram: '@private_chambers_berlin',
+    },
+    features: {
+      parking: false,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'fetish', 'private'],
+    ageRestriction: 21,
+    openingHours: {
+      monday: '18:00-02:00',
+      tuesday: '18:00-02:00',
+      wednesday: '18:00-02:00',
+      thursday: '18:00-02:00',
+      friday: '18:00-04:00',
+      saturday: '16:00-04:00',
+      sunday: '18:00-02:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/private-chambers-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 30,
+      entryFeeMax: 80,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.7,
+      count: 52,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: false,
+    isVerified: true,
+    distance: 0.8,
+  },
+  {
+    id: '20',
+    name: 'Underground Play',
+    slug: 'underground-play',
+    description: 'Authentische Dungeon-Atmosphäre in Lichtenberg mit professioneller Ausstattung.',
+    category: VENUE_CATEGORIES[9], // Dungeons/Play Spaces
+    location: {
+      lat: 52.5234,
+      lng: 13.4945,
+      address: 'Frankfurter Allee 234',
+      city: 'Berlin',
+      postalCode: '10365',
+    },
+    contact: {
+      website: 'https://www.underground-play.de',
+      instagram: '@underground_play_berlin',
+    },
+    features: {
+      parking: true,
+      wheelchair: false,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'fetish', 'hardcore'],
+    ageRestriction: 23,
+    openingHours: {
+      friday: '20:00-04:00',
+      saturday: '20:00-06:00',
+      sunday: '18:00-02:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/underground-play-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 25,
+      entryFeeMax: 50,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.4,
+      count: 38,
+    },
+    subscriptionTier: 'premium',
+    isFeatured: false,
+    isVerified: true,
+    distance: 7.2,
+  },
+
+  // Adult Theaters/Shows (2)
+  {
+    id: '21',
+    name: 'Cabaret Rouge',
+    slug: 'cabaret-rouge',
+    description: 'Elegante Burlesque-Shows und Adult Entertainment in Kreuzberg mit Stil und Klasse.',
+    category: VENUE_CATEGORIES[10], // Adult Theaters/Shows
+    location: {
+      lat: 52.4967,
+      lng: 13.4234,
+      address: 'Bergmannstraße 89',
+      city: 'Berlin',
+      postalCode: '10961',
+    },
+    contact: {
+      website: 'https://www.cabaret-rouge.de',
+      instagram: '@cabaret_rouge_berlin',
+    },
+    features: {
+      parking: false,
+      wheelchair: true,
+      lockers: true,
+    },
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['burlesque', 'performance', 'entertainment'],
+    ageRestriction: 18,
+    openingHours: {
+      wednesday: '20:00-02:00',
+      thursday: '20:00-02:00',
+      friday: '20:00-04:00',
+      saturday: '20:00-04:00',
+      sunday: '19:00-01:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/cabaret-rouge-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 15,
+      entryFeeMax: 35,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.6,
+      count: 145,
+    },
+    subscriptionTier: 'standard',
+    isFeatured: true,
+    isVerified: true,
+    distance: 3.8,
+  },
+  {
+    id: '22',
+    name: 'Velvet Stage',
+    slug: 'velvet-stage',
+    description: 'Intime Strip-Shows und Performances in Reinickendorf mit persönlicher Atmosphäre.',
+    category: VENUE_CATEGORIES[10], // Adult Theaters/Shows
+    location: {
+      lat: 52.5889,
+      lng: 13.3389,
+      address: 'Residenzstraße 67',
+      city: 'Berlin',
+      postalCode: '13409',
+    },
+    contact: {
+      website: 'https://www.velvet-stage.de',
+      instagram: '@velvet_stage_berlin',
+    },
+    features: {
+      parking: true,
+      wheelchair: false,
+      lockers: false,
+    },
+    orientations: ['hetero', 'gay'],
+    kinks: ['strip', 'performance'],
+    ageRestriction: 21,
+    openingHours: {
+      thursday: '21:00-03:00',
+      friday: '21:00-04:00',
+      saturday: '21:00-04:00',
+      sunday: '20:00-02:00',
+    },
+    media: {
+      coverImageUrl: '/images/venues/velvet-stage-cover.jpg',
+      images: [],
+    },
+    pricing: {
+      entryFeeMin: 20,
+      entryFeeMax: 40,
+      currency: 'EUR',
+    },
+    rating: {
+      avg: 4.1,
+      count: 78,
+    },
+    subscriptionTier: 'standard',
+    isFeatured: false,
+    isVerified: true,
+    distance: 8.9,
   },
 ];
 
-export const MOCK_EVENTS: Event[] = [
+// Mock Events Data
+export const MOCK_EVENTS = [
   {
     id: '1',
-    title: 'Latex Friday',
-    slug: 'latex-friday-2025-06-21',
-    description: 'Jeden Freitag verwandelt sich Velvet Dreams in ein Playground für Fetischisten. Dress Code: Latex, Leder, Fetisch oder stylisch schwarz. No Street Wear!',
-    shortDescription: 'Wöchentlicher Fetischclub im Velvet Dreams',
-    venue: MOCK_VENUES[0],
+    title: 'Latex Night',
+    slug: 'latex-night',
+    description: 'Jeden Freitag verwandelt sich das Club Obsidian in ein Playground für Fetischisten. Dress Code: Latex, Leder, Fetisch oder stylisch schwarz. No Street Wear!',
+    shortDescription: 'Fetisch-Party im Club Obsidian mit striktem Dress Code',
+    venue: MOCK_VENUES.find(v => v.slug === 'club-obsidian')!,
     timing: {
       startsAt: new Date('2025-06-21T22:00:00'),
       endsAt: new Date('2025-06-22T06:00:00'),
       timezone: 'Europe/Berlin',
     },
-    eventType: 'party',
-    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
-    kinks: ['bdsm', 'fetish', 'latex', 'leather'],
+    eventType: 'party' as const,
     ageRestriction: 21,
     dressCode: 'Fetisch, Latex, Leder oder stylisch schwarz',
+    orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
+    kinks: ['bdsm', 'fetish', 'latex', 'leather'],
     ticketing: {
       priceMin: 15,
       priceMax: 25,
@@ -329,32 +1248,32 @@ export const MOCK_EVENTS: Event[] = [
       requiresRsvp: false,
     },
     media: {
-      coverImageUrl: '/images/events/latex-friday-cover.jpg',
+      coverImageUrl: '/images/events/latex-night-cover.jpg',
       images: [],
     },
     isFeatured: true,
-    status: 'published',
+    status: 'published' as const,
     stats: {
       viewCount: 234,
-      interestedCount: 45,
+      interestedCount: 67,
     },
   },
   {
     id: '2',
     title: 'Pride Warm-Up',
-    slug: 'pride-warm-up-2025-06-22',
-    description: 'Große Pride Warm-Up Party in der Rainbow Lounge mit DJs, Drag Shows und guter Stimmung.',
-    shortDescription: 'Pride Vorfeier in der Rainbow Lounge',
-    venue: MOCK_VENUES[1],
+    slug: 'pride-warm-up',
+    description: 'Warming up for Pride Week mit den besten DJs der LGBTQ+ Szene Berlins.',
+    shortDescription: 'LGBTQ+ Party als Warm-Up für die Pride Week',
+    venue: MOCK_VENUES.find(v => v.slug === 'midnight-lounge')!,
     timing: {
       startsAt: new Date('2025-06-22T20:00:00'),
       endsAt: new Date('2025-06-23T04:00:00'),
       timezone: 'Europe/Berlin',
     },
-    eventType: 'party',
+    eventType: 'party' as const,
+    ageRestriction: 18,
     orientations: ['gay', 'lesbian', 'trans', 'queer'],
     kinks: ['vanilla'],
-    ageRestriction: 18,
     ticketing: {
       priceMin: 8,
       priceMax: 15,
@@ -362,141 +1281,51 @@ export const MOCK_EVENTS: Event[] = [
       requiresRsvp: false,
     },
     media: {
-      coverImageUrl: '/images/events/pride-warmup-cover.jpg',
+      coverImageUrl: '/images/events/pride-warm-up-cover.jpg',
       images: [],
     },
-    isFeatured: false,
-    status: 'published',
+    isFeatured: true,
+    status: 'published' as const,
     stats: {
-      viewCount: 156,
-      interestedCount: 67,
+      viewCount: 189,
+      interestedCount: 45,
     },
   },
   {
     id: '3',
-    title: 'Dark Carnival',
-    slug: 'dark-carnival-2025-06-21',
-    description: 'Elegante Gothic-Party im Dark Desires mit striktem Dress Code.',
-    shortDescription: 'Gothic Night im Dark Desires',
-    venue: MOCK_VENUES[2],
+    title: 'Shibari Workshop',
+    slug: 'shibari-workshop',
+    description: 'Einführung in die japanische Kunst des Shibari. Für Anfänger und Fortgeschrittene.',
+    shortDescription: 'Shibari-Workshop für Anfänger und Fortgeschrittene',
+    venue: MOCK_VENUES.find(v => v.slug === 'dungeon-berlin')!,
     timing: {
-      startsAt: new Date('2025-06-21T22:00:00'),
-      endsAt: new Date('2025-06-22T06:00:00'),
+      startsAt: new Date('2025-06-23T18:00:00'),
+      endsAt: new Date('2025-06-23T22:00:00'),
       timezone: 'Europe/Berlin',
     },
-    eventType: 'party',
+    eventType: 'workshop' as const,
+    ageRestriction: 21,
     orientations: ['hetero', 'gay', 'lesbian', 'trans', 'queer'],
-    kinks: ['gothic', 'fetish'],
-    ageRestriction: 21,
-    dressCode: 'Gothic, Fetisch oder stilvolles Schwarz',
+    kinks: ['bdsm', 'shibari', 'bondage'],
+    capacity: {
+      max: 20,
+      current: 12,
+    },
     ticketing: {
-      priceMin: 20,
-      priceMax: 30,
-      currency: 'EUR',
-      requiresRsvp: false,
-    },
-    media: {
-      coverImageUrl: '/images/events/dark-carnival-cover.jpg',
-      images: [],
-    },
-    isFeatured: true,
-    status: 'published',
-    stats: {
-      viewCount: 189,
-      interestedCount: 32,
-    },
-  },
-  {
-    id: '4',
-    title: 'Couples Night',
-    slug: 'couples-night-2025-06-22',
-    description: 'Exklusiver Abend für Paare im Crimson Nights mit entspannter Atmosphäre.',
-    shortDescription: 'Paare-Event im Crimson Nights',
-    venue: MOCK_VENUES[3],
-    timing: {
-      startsAt: new Date('2025-06-22T21:00:00'),
-      endsAt: new Date('2025-06-23T05:00:00'),
-      timezone: 'Europe/Berlin',
-    },
-    eventType: 'private',
-    orientations: ['hetero', 'queer'],
-    kinks: ['swinger', 'couples'],
-    ageRestriction: 21,
-    dressCode: 'Elegant oder sexy',
-    ticketing: {
-      priceMin: 40,
-      priceMax: 60,
+      priceMin: 35,
+      priceMax: 50,
       currency: 'EUR',
       requiresRsvp: true,
     },
     media: {
-      coverImageUrl: '/images/events/couples-night-cover.jpg',
+      coverImageUrl: '/images/events/shibari-workshop-cover.jpg',
       images: [],
     },
     isFeatured: false,
-    status: 'published',
+    status: 'published' as const,
     stats: {
-      viewCount: 98,
-      interestedCount: 23,
+      viewCount: 156,
+      interestedCount: 28,
     },
   },
 ];
-
-export const MOCK_USER: User = {
-  id: '1',
-  email: 'user@example.com',
-  username: 'berlinexplorer',
-  displayName: 'Berlin Explorer',
-  location: {
-    lat: 52.5200,
-    lng: 13.4050,
-    city: 'Berlin',
-    country: 'DE',
-  },
-  isPremium: false,
-  preferences: {
-    categories: ['clubs', 'bars'],
-    orientations: ['hetero', 'queer'],
-    kinks: ['bdsm', 'fetish'],
-    searchRadius: 10,
-    minRating: 4.0,
-  },
-};
-
-// Utility functions for mock data
-export const getVenuesByCategory = (categoryName: string): Venue[] => {
-  return MOCK_VENUES.filter(venue => venue.category.name === categoryName);
-};
-
-export const getUpcomingEvents = (limit?: number): Event[] => {
-  const now = new Date();
-  const upcoming = MOCK_EVENTS
-    .filter(event => event.timing.startsAt > now)
-    .sort((a, b) => a.timing.startsAt.getTime() - b.timing.startsAt.getTime());
-  
-  return limit ? upcoming.slice(0, limit) : upcoming;
-};
-
-export const searchVenues = (query: string, filters?: Partial<SearchFilters>): Venue[] => {
-  let results = MOCK_VENUES;
-  
-  if (query) {
-    const lowercaseQuery = query.toLowerCase();
-    results = results.filter(venue => 
-      venue.name.toLowerCase().includes(lowercaseQuery) ||
-      venue.description.toLowerCase().includes(lowercaseQuery)
-    );
-  }
-  
-  if (filters?.categories?.length) {
-    results = results.filter(venue => 
-      filters.categories!.includes(venue.category.name)
-    );
-  }
-  
-  if (filters?.minRating) {
-    results = results.filter(venue => venue.rating.avg >= filters.minRating!);
-  }
-  
-  return results;
-};

@@ -71,8 +71,9 @@ export default function MainApp() {
     
     // Events today filter
     if (filters.hasEventsToday) {
-      const today = new Date().toDateString();
-      if (event.timing.startsAt.toDateString() !== today) {
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+      const eventDate = event.timing.startsAt.toISOString().split('T')[0];
+      if (eventDate !== today) {
         return false;
       }
     }

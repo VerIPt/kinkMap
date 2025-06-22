@@ -31,8 +31,11 @@ export default function MainApp() {
 
   // Check login status on component mount
   React.useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    setIsGuest(!isLoggedIn);
+    // Stelle sicher, dass wir im Browser sind
+    if (typeof window !== 'undefined') {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      setIsGuest(!isLoggedIn);
+    }
   }, []);
 
   // Filter logic

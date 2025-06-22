@@ -1,8 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { VENUE_CATEGORIES } from '@/lib/mock-data';
+import { VENUE_CATEGORIES, MOCK_VENUES } from '@/lib/mock-data';
 
 interface FilterModalProps {
   isOpen: boolean;
@@ -35,6 +35,38 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
     isOpenNow: false,
     hasEventsToday: false,
   });
+
+  // Berechne gefilterte Anzahl
+  const filteredCount = useMemo(() => {
+    return MOCK_VENUES.filter(venue => {
+      // Kategorie-Filter
+      if (filters.categories.length > 0 && !filters.categories.includes(venue.category.id)) {
+        return false;
+      }
+      
+      // Entfernung-Filter (nur prüfen wenn distance vorhanden)
+      if (venue.distance && venue.distance > filters.distance) {
+        return false;
+      }
+      
+      // Rating-Filter
+      if (venue.rating.avg < filters.minRating) {
+        return false;
+      }
+      
+      // Orientierung-Filter (vereinfacht - prüft ob mindestens eine Übereinstimmung)
+      if (filters.orientations.length > 0) {
+        const hasMatchingOrientation = venue.orientations.some(orientation => 
+          filters.orientations.includes(orientation)
+        );
+        if (!hasMatchingOrientation) {
+          return false;
+        }
+      }
+      
+      return true;
+    }).length;
+  }, [filters]);
 
   if (!isOpen) return null;
 
@@ -73,7 +105,7 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm">
       <div className="absolute inset-0 bg-background-primary">
         {/* Status Bar */}
         <div className="flex justify-between items-center p-4 text-sm text-text-secondary">
@@ -244,7 +276,7 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
             variant="primary"
             onClick={handleApply}
           >
-            Ergebnisse anzeigen (23)
+            Ergebnisse anzeigen ({filteredCount})
           </Button>
         </div>
       </div>

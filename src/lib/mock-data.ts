@@ -1232,8 +1232,8 @@ export const MOCK_EVENTS = [
     shortDescription: 'Fetisch-Party im Club Obsidian mit striktem Dress Code',
     venue: MOCK_VENUES.find(v => v.slug === 'club-obsidian')!,
     timing: {
-      startsAt: new Date('2025-06-21T22:00:00'),
-      endsAt: new Date('2025-06-22T06:00:00'),
+      startsAt: new Date('2025-06-22T22:00:00'), // HEUTE
+      endsAt: new Date('2025-06-23T06:00:00'),
       timezone: 'Europe/Berlin',
     },
     eventType: 'party' as const,
@@ -1266,7 +1266,7 @@ export const MOCK_EVENTS = [
     shortDescription: 'LGBTQ+ Party als Warm-Up für die Pride Week',
     venue: MOCK_VENUES.find(v => v.slug === 'midnight-lounge')!,
     timing: {
-      startsAt: new Date('2025-06-22T20:00:00'),
+      startsAt: new Date('2025-06-22T20:00:00'), // HEUTE
       endsAt: new Date('2025-06-23T04:00:00'),
       timezone: 'Europe/Berlin',
     },
@@ -1299,8 +1299,8 @@ export const MOCK_EVENTS = [
     shortDescription: 'Shibari-Workshop für Anfänger und Fortgeschrittene',
     venue: MOCK_VENUES.find(v => v.slug === 'dungeon-berlin')!,
     timing: {
-      startsAt: new Date('2025-06-23T18:00:00'),
-      endsAt: new Date('2025-06-23T22:00:00'),
+      startsAt: new Date('2025-06-22T18:00:00'), // HEUTE
+      endsAt: new Date('2025-06-22T22:00:00'),
       timezone: 'Europe/Berlin',
     },
     eventType: 'workshop' as const,
@@ -1336,8 +1336,8 @@ export const MOCK_EVENTS = [
     shortDescription: 'Exklusiver Paare-Abend im Swingerclub',
     venue: MOCK_VENUES.find(v => v.slug === 'velvet-dreams')!,
     timing: {
-      startsAt: new Date('2025-06-24T21:00:00'),
-      endsAt: new Date('2025-06-25T04:00:00'),
+      startsAt: new Date('2025-06-22T21:00:00'), // HEUTE
+      endsAt: new Date('2025-06-23T04:00:00'),
       timezone: 'Europe/Berlin',
     },
     eventType: 'party' as const,
@@ -1370,8 +1370,8 @@ export const MOCK_EVENTS = [
     shortDescription: 'Elegante Burlesque-Show mit internationalen Künstlern',
     venue: MOCK_VENUES.find(v => v.slug === 'cabaret-rouge')!,
     timing: {
-      startsAt: new Date('2025-06-25T20:00:00'),
-      endsAt: new Date('2025-06-26T02:00:00'),
+      startsAt: new Date('2025-06-22T20:00:00'), // HEUTE
+      endsAt: new Date('2025-06-23T02:00:00'),
       timezone: 'Europe/Berlin',
     },
     eventType: 'show' as const,
@@ -1407,8 +1407,8 @@ export const MOCK_EVENTS = [
     shortDescription: 'Alternative Electronic-Party mit Fetisch-Atmosphäre',
     venue: MOCK_VENUES.find(v => v.slug === 'neon-nights')!,
     timing: {
-      startsAt: new Date('2025-06-26T22:00:00'),
-      endsAt: new Date('2025-06-27T08:00:00'),
+      startsAt: new Date('2025-06-22T22:00:00'), // HEUTE
+      endsAt: new Date('2025-06-23T08:00:00'),
       timezone: 'Europe/Berlin',
     },
     eventType: 'party' as const,
@@ -1546,8 +1546,8 @@ export const MOCK_EVENTS = [
     shortDescription: 'Workshop für angehende Dominas',
     venue: MOCK_VENUES.find(v => v.slug === 'sanctuary-studio')!,
     timing: {
-      startsAt: new Date('2025-06-30T15:00:00'),
-      endsAt: new Date('2025-06-30T20:00:00'),
+      startsAt: new Date('2025-07-01T15:00:00'),
+      endsAt: new Date('2025-07-01T20:00:00'),
       timezone: 'Europe/Berlin',
     },
     eventType: 'workshop' as const,

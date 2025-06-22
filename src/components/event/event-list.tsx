@@ -17,7 +17,6 @@ export function EventList({ events, isGuest = false }: EventListProps) {
         <EventCard 
           key={event.id} 
           event={event}
-          onClick={() => console.log('Event clicked:', event.slug)}
         />
       ))}
       

@@ -17,7 +17,6 @@ export function VenueList({ venues, isGuest = false }: VenueListProps) {
         <VenueCard 
           key={venue.id} 
           venue={venue}
-          onClick={() => console.log('Venue clicked:', venue.slug)}
         />
       ))}
       

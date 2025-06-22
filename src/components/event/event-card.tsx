@@ -1,7 +1,9 @@
+'use client';
 import React from 'react';
 import { Event } from '@/lib/types';
 import { Card } from '@/components/ui/card';
 import { formatDate, formatPrice } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 interface EventCardProps {
   event: Event;
@@ -10,10 +12,20 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, onClick, className }: EventCardProps) {
+  const router = useRouter();
+  
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      router.push(`/event/${event.slug}`);
+    }
+  };
+
   return (
     <Card 
       className={`p-4 cursor-pointer hover:bg-background-tertiary transition-colors border-l-4 border-l-primary ${className}`}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div className="space-y-3">
         <div className="flex items-start justify-between">

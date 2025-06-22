@@ -1,7 +1,10 @@
+'use client';
 import React from 'react';
 import { Venue } from '@/lib/types';
 import { Card } from '@/components/ui/card';
 import { formatDistance, formatPrice, getStarRating } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface VenueCardProps {
   venue: Venue;
@@ -10,14 +13,38 @@ interface VenueCardProps {
 }
 
 export function VenueCard({ venue, onClick, className }: VenueCardProps) {
+  const router = useRouter();
+  
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      router.push(`/venue/${venue.slug}`);
+    }
+  };
+
   return (
     <Card 
       className={`flex p-4 cursor-pointer hover:bg-background-tertiary transition-colors ${className}`}
-      onClick={onClick}
+      onClick={handleClick}
     >
-      {/* Venue Image Placeholder */}
-      <div className="w-20 h-20 bg-background-tertiary rounded-lg flex-shrink-0 mr-4 flex items-center justify-center text-2xl">
-        {venue.category.icon}
+      {/* Venue Image/Icon */}
+      <div className="w-20 h-20 bg-background-tertiary rounded-lg flex-shrink-0 mr-4 relative overflow-hidden">
+        {venue.media.logoUrl ? (
+          <Image
+            src={venue.media.logoUrl}
+            alt={venue.name}
+            fill
+            className="object-cover"
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+            }}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-2xl">
+            {venue.category.icon}
+          </div>
+        )}
       </div>
       
       {/* Venue Info */}

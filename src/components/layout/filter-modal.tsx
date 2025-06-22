@@ -1,0 +1,273 @@
+'use client';
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { VENUE_CATEGORIES } from '@/lib/mock-data';
+
+interface FilterModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onApplyFilters: (filters: FilterState) => void;
+}
+
+export interface FilterState {
+  categories: string[];
+  distance: number;
+  orientations: string[];
+  minRating: number;
+  isOpenNow: boolean;
+  hasEventsToday: boolean;
+}
+
+const ORIENTATIONS = [
+  { id: 'hetero', label: 'Hetero' },
+  { id: 'gay', label: 'Gay/Lesbian' },
+  { id: 'trans', label: 'Trans/Queer' },
+  { id: 'bdsm', label: 'BDSM/Kink' },
+];
+
+export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProps) {
+  const [filters, setFilters] = useState<FilterState>({
+    categories: [],
+    distance: 10,
+    orientations: ['hetero', 'gay', 'bdsm'],
+    minRating: 0,
+    isOpenNow: false,
+    hasEventsToday: false,
+  });
+
+  if (!isOpen) return null;
+
+  const handleCategoryToggle = (categoryId: string) => {
+    setFilters(prev => ({
+      ...prev,
+      categories: prev.categories.includes(categoryId)
+        ? prev.categories.filter(id => id !== categoryId)
+        : [...prev.categories, categoryId]
+    }));
+  };
+
+  const handleOrientationToggle = (orientationId: string) => {
+    setFilters(prev => ({
+      ...prev,
+      orientations: prev.orientations.includes(orientationId)
+        ? prev.orientations.filter(id => id !== orientationId)
+        : [...prev.orientations, orientationId]
+    }));
+  };
+
+  const handleApply = () => {
+    onApplyFilters(filters);
+    onClose();
+  };
+
+  const handleReset = () => {
+    setFilters({
+      categories: [],
+      distance: 10,
+      orientations: ['hetero', 'gay', 'bdsm'],
+      minRating: 0,
+      isOpenNow: false,
+      hasEventsToday: false,
+    });
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
+      <div className="absolute inset-0 bg-background-primary">
+        {/* Status Bar */}
+        <div className="flex justify-between items-center p-4 text-sm text-text-secondary">
+          <span>9:41</span>
+          <div className="flex gap-1">
+            <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
+            <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
+            <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
+            <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
+            <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
+          </div>
+          <span>100%</span>
+        </div>
+
+        {/* Modal Header */}
+        <div className="flex justify-between items-center p-4 bg-background-secondary border-b border-border">
+          <Button variant="ghost" size="sm" onClick={onClose} className="text-primary">
+            ✕
+          </Button>
+          <h2 className="text-lg font-semibold text-text-primary">Filter</h2>
+          <Button variant="ghost" size="sm" onClick={handleReset} className="text-primary">
+            Reset
+          </Button>
+        </div>
+
+        {/* Filter Content */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          {/* Categories */}
+          <Card className="p-4">
+            <h3 className="font-semibold text-primary mb-4">Kategorien</h3>
+            <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
+              <button
+                onClick={() => setFilters(prev => ({ ...prev, categories: [] }))}
+                className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                  filters.categories.length === 0
+                    ? 'bg-primary text-white'
+                    : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
+                }`}
+              >
+                Alle
+              </button>
+              {VENUE_CATEGORIES.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategoryToggle(category.id)}
+                  className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                    filters.categories.includes(category.id)
+                      ? 'bg-primary text-white'
+                      : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
+                  }`}
+                >
+                  {category.displayName}
+                </button>
+              ))}
+            </div>
+          </Card>
+
+          {/* Distance */}
+          <Card className="p-4">
+            <h3 className="font-semibold text-primary mb-4">Entfernung</h3>
+            <div className="space-y-3">
+              <input
+                type="range"
+                min="1"
+                max="50"
+                value={filters.distance}
+                onChange={(e) => setFilters(prev => ({ ...prev, distance: Number(e.target.value) }))}
+                className="w-full h-2 bg-background-tertiary rounded-lg appearance-none slider"
+              />
+              <div className="flex justify-between text-sm text-text-secondary">
+                <span>1 km</span>
+                <span className="text-primary font-semibold">{filters.distance} km</span>
+                <span>50+ km</span>
+              </div>
+            </div>
+          </Card>
+
+          {/* Orientations */}
+          <Card className="p-4">
+            <h3 className="font-semibold text-primary mb-4">Orientierung</h3>
+            <div className="space-y-3">
+              {ORIENTATIONS.map((orientation) => (
+                <label key={orientation.id} className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filters.orientations.includes(orientation.id)}
+                    onChange={() => handleOrientationToggle(orientation.id)}
+                    className="sr-only"
+                  />
+                  <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
+                    filters.orientations.includes(orientation.id)
+                      ? 'bg-primary border-primary text-white'
+                      : 'border-border'
+                  }`}>
+                    {filters.orientations.includes(orientation.id) && '✓'}
+                  </div>
+                  <span className="text-text-primary">{orientation.label}</span>
+                </label>
+              ))}
+            </div>
+          </Card>
+
+          {/* Rating */}
+          <Card className="p-4">
+            <h3 className="font-semibold text-primary mb-4">Bewertung</h3>
+            <div className="flex gap-2">
+              {[0, 4, 4.5].map((rating) => (
+                <button
+                  key={rating}
+                  onClick={() => setFilters(prev => ({ ...prev, minRating: rating }))}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    filters.minRating === rating
+                      ? 'bg-primary text-white'
+                      : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
+                  }`}
+                >
+                  {rating === 0 ? 'Alle' : `${rating}+ ★`}
+                </button>
+              ))}
+            </div>
+          </Card>
+
+          {/* Availability */}
+          <Card className="p-4">
+            <h3 className="font-semibold text-primary mb-4">Verfügbarkeit</h3>
+            <div className="space-y-3">
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={filters.isOpenNow}
+                  onChange={(e) => setFilters(prev => ({ ...prev, isOpenNow: e.target.checked }))}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
+                  filters.isOpenNow
+                    ? 'bg-primary border-primary text-white'
+                    : 'border-border'
+                }`}>
+                  {filters.isOpenNow && '✓'}
+                </div>
+                <span className="text-text-primary">Jetzt geöffnet</span>
+              </label>
+
+              <label className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={filters.hasEventsToday}
+                  onChange={(e) => setFilters(prev => ({ ...prev, hasEventsToday: e.target.checked }))}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
+                  filters.hasEventsToday
+                    ? 'bg-primary border-primary text-white'
+                    : 'border-border'
+                }`}>
+                  {filters.hasEventsToday && '✓'}
+                </div>
+                <span className="text-text-primary">Events heute</span>
+              </label>
+            </div>
+          </Card>
+        </div>
+
+        {/* Apply Button */}
+        <div className="p-4 bg-background-secondary border-t border-border">
+          <Button 
+            className="w-full h-12 text-lg font-semibold"
+            variant="primary"
+            onClick={handleApply}
+          >
+            Ergebnisse anzeigen (23)
+          </Button>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .slider::-webkit-slider-thumb {
+          appearance: none;
+          width: 20px;
+          height: 20px;
+          background: #d32f2f;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+          width: 20px;
+          height: 20px;
+          background: #d32f2f;
+          border-radius: 50%;
+          cursor: pointer;
+          border: none;
+        }
+      `}</style>
+    </div>
+  );
+}

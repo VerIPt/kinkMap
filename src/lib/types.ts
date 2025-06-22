@@ -99,7 +99,7 @@ export interface Event {
     endsAt?: Date;
     timezone: string;
   };
-  eventType: 'party' | 'workshop' | 'meetup' | 'private';
+  eventType: 'party' | 'workshop' | 'meetup' | 'private' | 'show' | 'social' | 'session' | 'screening' | 'cultural' | 'exclusive' | 'cruising';
   orientations: string[];
   kinks: string[];
   ageRestriction?: number;

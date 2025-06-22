@@ -14,7 +14,7 @@ export function formatDate(date: Date): string {
   }).format(date);
 }
 
-export function formatPrice(min?: number, max?: number, currency = 'EUR'): string {
+export function formatPrice(min?: number, max?: number): string {
   if (!min && !max) return 'Preis auf Anfrage';
   if (min && max && min !== max) return `${min}€ - ${max}€`;
   if (min) return `${min}€`;
@@ -45,7 +45,8 @@ export function isEventToday(eventDate: Date): boolean {
 
 export function isVenueOpen(openingHours: { [day: string]: string }): boolean {
   const now = new Date();
-  const dayName = now.toLocaleDateString('en-US', { weekday: 'short' }).toLowerCase(); // mon, tue, etc.
+  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const dayName = dayNames[now.getDay()];
   const currentHour = now.getHours();
   
   const todayHours = openingHours[dayName];

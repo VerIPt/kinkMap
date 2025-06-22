@@ -5,26 +5,13 @@ import { Button } from '@/components/ui/button';
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-background-primary flex flex-col">
-      {/* Status Bar Mockup */}
-      <div className="flex justify-between items-center p-4 text-sm text-text-secondary">
-        <span>9:41</span>
-        <div className="flex gap-1">
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-        </div>
-        <span>100%</span>
-      </div>
-
       {/* Hero Section */}
       <div className="flex-1 flex flex-col justify-center items-center px-8 py-12">
         <div className="text-center max-w-sm w-full">
           {/* Logo */}
           <h1 className="text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-primary to-primary-700 bg-clip-text text-transparent">
-              KinkMap
+              kinkMap
             </span>
           </h1>
           

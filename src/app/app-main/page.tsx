@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Header } from '@/components/layout/header';
+import { SearchHeader } from '@/components/layout/search-header';
 import { TabBar } from '@/components/layout/tab-bar';
 import { FilterModal, FilterState } from '@/components/layout/filter-modal';
 import { EventList } from '@/components/event/event-list';
@@ -15,10 +16,10 @@ const TABS = [
 ];
 
 export default function MainApp() {
-  const [activeTab, setActiveTab] = useState('events');
-  const [searchValue, setSearchValue] = useState('');
-  const [isGuest] = useState(true); // Simulate guest mode
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>('events');
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [isGuest] = useState<boolean>(true);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<FilterState>({
     categories: [],
     distance: 10,
@@ -28,48 +29,17 @@ export default function MainApp() {
     hasEventsToday: false,
   });
 
-  const getPlaceholder = () => {
-    switch (activeTab) {
-      case 'events': return 'Events suchen...';
-      case 'venues': return 'Venues suchen...';
-      case 'map': return 'In der Nähe suchen...';
-      default: return 'Suchen...';
-    }
-  };
-
-  const handleFilterApply = (newFilters: FilterState) => {
-    setFilters(newFilters);
-    // TODO: Apply filters to data
-    console.log('Applied filters:', newFilters);
-  };
-
-  // Filter data based on current filters
+  // Filter logic
   const filteredVenues = MOCK_VENUES.filter(venue => {
-    // Category filter
-    if (filters.categories.length > 0 && !filters.categories.includes(venue.category.id)) {
-      return false;
-    }
-    
-    // Rating filter
-    if (filters.minRating > 0 && venue.rating.avg < filters.minRating) {
-      return false;
-    }
-    
-    // Distance filter
-    if (venue.distance && venue.distance > filters.distance) {
-      return false;
-    }
-    
+    if (filters.categories.length > 0 && !filters.categories.includes(venue.category.id)) return false;
+    if (filters.minRating > 0 && venue.rating.avg < filters.minRating) return false;
+    if (venue.distance && venue.distance > filters.distance) return false;
     return true;
   });
 
   const filteredEvents = MOCK_EVENTS.filter(event => {
-    // Category filter (based on venue category)
-    if (filters.categories.length > 0 && !filters.categories.includes(event.venue.category.id)) {
-      return false;
-    }
+    if (filters.categories.length > 0 && !filters.categories.includes(event.venue.category.id)) return false;
     
-    // Events today filter
     if (filters.hasEventsToday) {
       const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
       const eventDate = event.timing.startsAt.toISOString().split('T')[0];
@@ -107,23 +77,22 @@ export default function MainApp() {
     }
   };
 
+  const getPlaceholder = () => {
+    switch (activeTab) {
+      case 'events': return 'Events suchen...';
+      case 'venues': return 'Venues suchen...';
+      case 'map': return 'Orte suchen...';
+      default: return 'Suchen...';
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background-primary flex flex-col">
-      {/* Status Bar */}
-      <div className="flex justify-between items-center p-4 text-sm text-text-secondary">
-        <span>9:41</span>
-        <div className="flex gap-1">
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-        </div>
-        <span>100%</span>
-      </div>
+      {/* Header with kinkMap logo and navigation */}
+      <Header showHomeButton={false} />
 
-      {/* Header with Search */}
-      <Header
+      {/* Search Header */}
+      <SearchHeader
         searchValue={searchValue}
         onSearchChange={setSearchValue}
         placeholder={getPlaceholder()}
@@ -160,7 +129,10 @@ export default function MainApp() {
       <FilterModal
         isOpen={isFilterOpen}
         onClose={() => setIsFilterOpen(false)}
-        onApplyFilters={handleFilterApply}
+        onApplyFilters={(newFilters) => {
+          setFilters(newFilters);
+          setIsFilterOpen(false);
+        }}
       />
     </div>
   );

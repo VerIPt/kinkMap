@@ -2,7 +2,7 @@
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
+import { Header } from '@/components/layout/header';
 import { Card } from '@/components/ui/card';
 import { MOCK_VENUES, MOCK_EVENTS } from '@/lib/mock-data';
 import { formatPrice, getStarRating } from '@/lib/utils';
@@ -20,18 +20,8 @@ export default function VenueDetail() {
 
   return (
     <div className="min-h-screen bg-background-primary">
-      {/* Status Bar */}
-      <div className="flex justify-between items-center p-4 text-sm text-text-secondary">
-        <span>9:41</span>
-        <div className="flex gap-1">
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-        </div>
-        <span>100%</span>
-      </div>
+      {/* Header with back button */}
+      <Header showBackButton={true} showHomeButton={true} title={venue.name} />
 
       {/* Hero Section with Image */}
       <div className="relative h-52 bg-gradient-to-br from-primary to-primary-700">
@@ -56,27 +46,6 @@ export default function VenueDetail() {
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
         
-        {/* Navigation */}
-        <div className="absolute top-4 left-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => router.back()}
-            className="w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70"
-          >
-            ←
-          </Button>
-        </div>
-        <div className="absolute top-4 right-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70"
-          >
-            ⋯
-          </Button>
-        </div>
-        
         {/* Center Icon */}
         <div className="absolute inset-0 flex items-center justify-center text-6xl">
           {venue.category.icon}
@@ -87,7 +56,6 @@ export default function VenueDetail() {
       <div className="px-6 py-6 space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-text-primary mb-2">{venue.name}</h1>
           <div className="inline-block bg-primary text-white px-3 py-1 rounded-full text-sm font-medium mb-3">
             {venue.category.displayName}
           </div>

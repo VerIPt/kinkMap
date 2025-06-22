@@ -2,6 +2,7 @@
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { Header } from '@/components/layout/header';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { MOCK_EVENTS } from '@/lib/mock-data';
@@ -18,18 +19,8 @@ export default function EventDetail() {
 
   return (
     <div className="min-h-screen bg-background-primary">
-      {/* Status Bar */}
-      <div className="flex justify-between items-center p-4 text-sm text-text-secondary">
-        <span>9:41</span>
-        <div className="flex gap-1">
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-          <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
-        </div>
-        <span>100%</span>
-      </div>
+      {/* Header with back button */}
+      <Header showBackButton={true} showHomeButton={true} title={event.title} />
 
       {/* Hero Section with Image */}
       <div className="relative h-56 bg-gradient-to-br from-primary to-primary-700">
@@ -53,27 +44,6 @@ export default function EventDetail() {
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/20"></div>
         
-        {/* Navigation */}
-        <div className="absolute top-4 left-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => router.back()}
-            className="w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70"
-          >
-            ←
-          </Button>
-        </div>
-        <div className="absolute top-4 right-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-10 h-10 rounded-full bg-black/50 text-white hover:bg-black/70"
-          >
-            ♡
-          </Button>
-        </div>
-        
         {/* Event Date Overlay */}
         <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm p-3 rounded-lg text-center text-white">
           <div className="text-xl font-bold">
@@ -96,7 +66,6 @@ export default function EventDetail() {
       <div className="px-6 py-6 space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-text-primary mb-2">{event.title}</h1>
           <div 
             onClick={() => router.push(`/venue/${event.venue.slug}`)}
             className="text-accent font-semibold mb-2 cursor-pointer hover:underline"

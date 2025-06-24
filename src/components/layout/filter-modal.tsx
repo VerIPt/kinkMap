@@ -106,9 +106,9 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
 
   return (
     <div className="fixed inset-0 z-[9999] bg-black/50 backdrop-blur-sm">
-      <div className="absolute inset-0 bg-background-primary">
+      <div className="absolute inset-0 bg-background-primary flex flex-col">
         {/* Status Bar */}
-        <div className="flex justify-between items-center p-4 text-sm text-text-secondary">
+        <div className="flex justify-between items-center p-4 text-sm text-text-secondary flex-shrink-0">
           <span>9:41</span>
           <div className="flex gap-1">
             <div className="w-1 h-1 bg-text-secondary rounded-full"></div>
@@ -121,7 +121,7 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
         </div>
 
         {/* Modal Header */}
-        <div className="flex justify-between items-center p-4 bg-background-secondary border-b border-border">
+        <div className="flex justify-between items-center p-4 bg-background-secondary border-b border-border flex-shrink-0">
           <Button variant="ghost" size="sm" onClick={onClose} className="text-primary">
             ✕
           </Button>
@@ -132,145 +132,147 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
         </div>
 
         {/* Filter Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* Categories */}
-          <Card className="p-4">
-            <h3 className="font-semibold text-primary mb-4">Kategorien</h3>
-            <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto">
-              <button
-                onClick={() => setFilters(prev => ({ ...prev, categories: [] }))}
-                className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                  filters.categories.length === 0
-                    ? 'bg-primary text-white'
-                    : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
-                }`}
-              >
-                Alle
-              </button>
-              {VENUE_CATEGORIES.map((category) => (
+        <div className="flex-1 overflow-y-auto overscroll-contain" style={{ touchAction: 'pan-y' }}>
+          <div className="p-6 space-y-6">
+            {/* Categories */}
+            <Card className="p-4">
+              <h3 className="font-semibold text-primary mb-4">Kategorien</h3>
+              <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto overscroll-contain" style={{ touchAction: 'pan-y' }}>
                 <button
-                  key={category.id}
-                  onClick={() => handleCategoryToggle(category.id)}
+                  onClick={() => setFilters(prev => ({ ...prev, categories: [] }))}
                   className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
-                    filters.categories.includes(category.id)
+                    filters.categories.length === 0
                       ? 'bg-primary text-white'
                       : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
                   }`}
                 >
-                  {category.displayName}
+                  Alle
                 </button>
-              ))}
-            </div>
-          </Card>
-
-          {/* Distance */}
-          <Card className="p-4">
-            <h3 className="font-semibold text-primary mb-4">Entfernung</h3>
-            <div className="space-y-3">
-              <input
-                type="range"
-                min="1"
-                max="50"
-                value={filters.distance}
-                onChange={(e) => setFilters(prev => ({ ...prev, distance: Number(e.target.value) }))}
-                className="w-full h-2 bg-background-tertiary rounded-lg appearance-none slider"
-              />
-              <div className="flex justify-between text-sm text-text-secondary">
-                <span>1 km</span>
-                <span className="text-primary font-semibold">{filters.distance} km</span>
-                <span>50+ km</span>
+                {VENUE_CATEGORIES.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategoryToggle(category.id)}
+                    className={`px-3 py-2 rounded-full text-sm font-medium transition-colors ${
+                      filters.categories.includes(category.id)
+                        ? 'bg-primary text-white'
+                        : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
+                    }`}
+                  >
+                    {category.displayName}
+                  </button>
+                ))}
               </div>
-            </div>
-          </Card>
+            </Card>
 
-          {/* Orientations */}
-          <Card className="p-4">
-            <h3 className="font-semibold text-primary mb-4">Orientierung</h3>
-            <div className="space-y-3">
-              {ORIENTATIONS.map((orientation) => (
-                <label key={orientation.id} className="flex items-center cursor-pointer">
+            {/* Distance */}
+            <Card className="p-4">
+              <h3 className="font-semibold text-primary mb-4">Entfernung</h3>
+              <div className="space-y-3">
+                <input
+                  type="range"
+                  min="1"
+                  max="50"
+                  value={filters.distance}
+                  onChange={(e) => setFilters(prev => ({ ...prev, distance: Number(e.target.value) }))}
+                  className="w-full h-2 bg-background-tertiary rounded-lg appearance-none slider"
+                />
+                <div className="flex justify-between text-sm text-text-secondary">
+                  <span>1 km</span>
+                  <span className="text-primary font-semibold">{filters.distance} km</span>
+                  <span>50+ km</span>
+                </div>
+              </div>
+            </Card>
+
+            {/* Orientations */}
+            <Card className="p-4">
+              <h3 className="font-semibold text-primary mb-4">Orientierung</h3>
+              <div className="space-y-3">
+                {ORIENTATIONS.map((orientation) => (
+                  <label key={orientation.id} className="flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={filters.orientations.includes(orientation.id)}
+                      onChange={() => handleOrientationToggle(orientation.id)}
+                      className="sr-only"
+                    />
+                    <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
+                      filters.orientations.includes(orientation.id)
+                        ? 'bg-primary border-primary text-white'
+                        : 'border-border'
+                    }`}>
+                      {filters.orientations.includes(orientation.id) && '✓'}
+                    </div>
+                    <span className="text-text-primary">{orientation.label}</span>
+                  </label>
+                ))}
+              </div>
+            </Card>
+
+            {/* Rating */}
+            <Card className="p-4">
+              <h3 className="font-semibold text-primary mb-4">Bewertung</h3>
+              <div className="flex gap-2">
+                {[0, 4, 4.5].map((rating) => (
+                  <button
+                    key={rating}
+                    onClick={() => setFilters(prev => ({ ...prev, minRating: rating }))}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      filters.minRating === rating
+                        ? 'bg-primary text-white'
+                        : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
+                    }`}
+                  >
+                    {rating === 0 ? 'Alle' : `${rating}+ ★`}
+                  </button>
+                ))}
+              </div>
+            </Card>
+
+            {/* Availability */}
+            <Card className="p-4">
+              <h3 className="font-semibold text-primary mb-4">Verfügbarkeit</h3>
+              <div className="space-y-3">
+                <label className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={filters.orientations.includes(orientation.id)}
-                    onChange={() => handleOrientationToggle(orientation.id)}
+                    checked={filters.isOpenNow}
+                    onChange={(e) => setFilters(prev => ({ ...prev, isOpenNow: e.target.checked }))}
                     className="sr-only"
                   />
                   <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
-                    filters.orientations.includes(orientation.id)
+                    filters.isOpenNow
                       ? 'bg-primary border-primary text-white'
                       : 'border-border'
                   }`}>
-                    {filters.orientations.includes(orientation.id) && '✓'}
+                    {filters.isOpenNow && '✓'}
                   </div>
-                  <span className="text-text-primary">{orientation.label}</span>
+                  <span className="text-text-primary">Jetzt geöffnet</span>
                 </label>
-              ))}
-            </div>
-          </Card>
 
-          {/* Rating */}
-          <Card className="p-4">
-            <h3 className="font-semibold text-primary mb-4">Bewertung</h3>
-            <div className="flex gap-2">
-              {[0, 4, 4.5].map((rating) => (
-                <button
-                  key={rating}
-                  onClick={() => setFilters(prev => ({ ...prev, minRating: rating }))}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    filters.minRating === rating
-                      ? 'bg-primary text-white'
-                      : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
-                  }`}
-                >
-                  {rating === 0 ? 'Alle' : `${rating}+ ★`}
-                </button>
-              ))}
-            </div>
-          </Card>
-
-          {/* Availability */}
-          <Card className="p-4">
-            <h3 className="font-semibold text-primary mb-4">Verfügbarkeit</h3>
-            <div className="space-y-3">
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.isOpenNow}
-                  onChange={(e) => setFilters(prev => ({ ...prev, isOpenNow: e.target.checked }))}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
-                  filters.isOpenNow
-                    ? 'bg-primary border-primary text-white'
-                    : 'border-border'
-                }`}>
-                  {filters.isOpenNow && '✓'}
-                </div>
-                <span className="text-text-primary">Jetzt geöffnet</span>
-              </label>
-
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.hasEventsToday}
-                  onChange={(e) => setFilters(prev => ({ ...prev, hasEventsToday: e.target.checked }))}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
-                  filters.hasEventsToday
-                    ? 'bg-primary border-primary text-white'
-                    : 'border-border'
-                }`}>
-                  {filters.hasEventsToday && '✓'}
-                </div>
-                <span className="text-text-primary">Events heute</span>
-              </label>
-            </div>
-          </Card>
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={filters.hasEventsToday}
+                    onChange={(e) => setFilters(prev => ({ ...prev, hasEventsToday: e.target.checked }))}
+                    className="sr-only"
+                  />
+                  <div className={`w-5 h-5 border-2 rounded mr-3 flex items-center justify-center ${
+                    filters.hasEventsToday
+                      ? 'bg-primary border-primary text-white'
+                      : 'border-border'
+                  }`}>
+                    {filters.hasEventsToday && '✓'}
+                  </div>
+                  <span className="text-text-primary">Events heute</span>
+                </label>
+              </div>
+            </Card>
+          </div>
         </div>
 
         {/* Apply Button */}
-        <div className="p-4 bg-background-secondary border-t border-border">
+        <div className="p-4 bg-background-secondary border-t border-border flex-shrink-0">
           <Button 
             className="w-full h-12 text-lg font-semibold"
             variant="primary"

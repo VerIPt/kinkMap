@@ -2,9 +2,10 @@
 import React from 'react';
 import { Venue } from '@/lib/types';
 import { Card } from '@/components/ui/card';
-import { formatDistance, formatPrice, getStarRating } from '@/lib/utils';
+import { formatDistance, formatPrice } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { Icon, StarRating } from '@/components/ui/icon';
 
 interface VenueCardProps {
   venue: Venue;
@@ -21,6 +22,23 @@ export function VenueCard({ venue, onClick, className }: VenueCardProps) {
     } else {
       router.push(`/venue/${venue.slug}`);
     }
+  };
+
+  const getCategoryIcon = (categoryName: string): string => {
+    const iconMap: { [key: string]: string } = {
+      'pornokinos': 'cinema',
+      'bars': 'bar',
+      'sexshops': 'sexshop', 
+      'swingerclubs': 'swingerclub',
+      'fetischclubs': 'bdsm',
+      'clubs': 'club',
+      'gloryholes': 'community',
+      'bdsm-studios': 'bdsm',
+      'saunas': 'sauna',
+      'dungeons': 'bdsm',
+      'adult-theaters': 'theater'
+    };
+    return iconMap[categoryName] || 'house';
   };
 
   return (
@@ -41,8 +59,14 @@ export function VenueCard({ venue, onClick, className }: VenueCardProps) {
             }}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-2xl">
-            {venue.category.icon}
+          <div className="w-full h-full flex items-center justify-center">
+            <Icon 
+              name={getCategoryIcon(venue.category.name)} 
+              size={32} 
+              color="#888888"
+              containerColor="#d32f2f"
+              showContainer={true}
+            />
           </div>
         )}
       </div>
@@ -55,7 +79,7 @@ export function VenueCard({ venue, onClick, className }: VenueCardProps) {
             <p className="text-sm text-primary font-medium">{venue.category.displayName}</p>
           </div>
           {venue.isVerified && (
-            <div className="text-success text-sm">✓</div>
+            <Icon name="check" size={16} color="#4ecdc4" />
           )}
         </div>
         
@@ -65,7 +89,7 @@ export function VenueCard({ venue, onClick, className }: VenueCardProps) {
         
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-warning text-sm">{getStarRating(venue.rating.avg)}</span>
+            <StarRating rating={venue.rating.avg} size={14} color="#feca57" />
             <span className="text-xs text-text-muted">
               {venue.rating.avg} ({venue.rating.count})
             </span>

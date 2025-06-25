@@ -10,9 +10,9 @@ import { MapContainer } from '@/components/map/map-container';
 import { MOCK_EVENTS, MOCK_VENUES } from '@/lib/mock-data';
 
 const TABS = [
-  { id: 'events', label: 'Events', icon: '🎉' },
-  { id: 'venues', label: 'Venues', icon: '📍' },
-  { id: 'map', label: 'Karte', icon: '🗺️' },
+  { id: 'events', label: 'Events', icon: 'mask' },
+  { id: 'venues', label: 'Venues', icon: 'standort-pin' },
+  { id: 'map', label: 'Karte', icon: 'karten' },
 ];
 
 export default function MainApp() {

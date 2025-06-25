@@ -1,5 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { Icon } from '@/components/ui/icon';
 
 interface TabItem {
   id: string;
@@ -29,7 +30,15 @@ export function TabBar({ tabs, activeTab, onTabChange }: TabBarProps) {
           )}
         >
           <div className="flex items-center justify-center gap-2">
-            {tab.icon && <span>{tab.icon}</span>}
+            {tab.icon && (
+              <Icon 
+                name={tab.icon} 
+                size={20} 
+                color="#888888"
+                containerColor="#d32f2f"
+                showContainer={true}
+              />
+            )}
             <span>{tab.label}</span>
           </div>
         </button>

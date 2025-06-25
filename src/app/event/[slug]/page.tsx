@@ -3,10 +3,11 @@ import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Header } from '@/components/layout/header';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { MOCK_EVENTS } from '@/lib/mock-data';
 import { formatDate, formatPrice } from '@/lib/utils';
+import { Icon } from '@/components/ui/icon';
 
 export default function EventDetail() {
   const params = useParams();
@@ -14,8 +15,25 @@ export default function EventDetail() {
   const event = MOCK_EVENTS.find(e => e.slug === params.slug);
 
   if (!event) {
-    return <div>Event not found</div>;
+    return <div>Event nicht gefunden</div>;
   }
+
+  const getEventIcon = (eventType: string): string => {
+    const iconMap: { [key: string]: string } = {
+      'party': 'club',
+      'workshop': 'community', 
+      'meetup': 'community',
+      'private': 'house',
+      'show': 'theater',
+      'social': 'community',
+      'session': 'bdsm',
+      'screening': 'cinema',
+      'cultural': 'theater',
+      'exclusive': 'heart',
+      'cruising': 'community'
+    };
+    return iconMap[eventType] || 'event';
+  };
 
   return (
     <div className="min-h-screen bg-background-primary">
@@ -23,7 +41,7 @@ export default function EventDetail() {
       <Header showBackButton={true} showHomeButton={true} title={event.title} />
 
       {/* Hero Section with Image */}
-      <div className="relative h-56 bg-gradient-to-br from-primary to-primary-700">
+      <div className="relative h-52 bg-gradient-to-br from-primary to-primary-700">
         {/* Background Image Placeholder */}
         <div className="absolute inset-0">
           {event.media.coverImageUrl ? (
@@ -56,8 +74,12 @@ export default function EventDetail() {
 
         {/* Center Icon */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center text-4xl backdrop-blur-sm">
-            🎭
+          <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+            <Icon 
+              name={getEventIcon(event.eventType)} 
+              size={40} 
+              color="white"
+            />
           </div>
         </div>
       </div>
@@ -89,7 +111,9 @@ export default function EventDetail() {
           <h3 className="font-semibold text-text-primary mb-4">Details</h3>
           <div className="space-y-4">
             <div className="flex items-center">
-              <div className="text-2xl mr-4">💶</div>
+              <div className="mr-4">
+                <Icon name="money" size={24} color="#d32f2f" />
+              </div>
               <div className="flex-1">
                 <div className="text-sm text-text-secondary">Eintritt</div>
                 <div className="font-medium text-text-primary">
@@ -99,7 +123,9 @@ export default function EventDetail() {
             </div>
 
             <div className="flex items-center">
-              <div className="text-2xl mr-4">👥</div>
+              <div className="mr-4">
+                <Icon name="people" size={24} color="#d32f2f" />
+              </div>
               <div className="flex-1">
                 <div className="text-sm text-text-secondary">Für</div>
                 <div className="font-medium text-text-primary">
@@ -112,7 +138,9 @@ export default function EventDetail() {
 
             {event.dressCode && (
               <div className="flex items-center">
-                <div className="text-2xl mr-4">👗</div>
+                <div className="mr-4">
+                  <Icon name="dresscode" size={24} color="#d32f2f" />
+                </div>
                 <div className="flex-1">
                   <div className="text-sm text-text-secondary">Dress Code</div>
                   <div className="font-medium text-text-primary">{event.dressCode}</div>
@@ -120,19 +148,21 @@ export default function EventDetail() {
               </div>
             )}
 
-            {event.ageRestriction && (
-              <div className="flex items-center">
-                <div className="text-2xl mr-4">🔞</div>
-                <div className="flex-1">
-                  <div className="text-sm text-text-secondary">Altersbeschränkung</div>
-                  <div className="font-medium text-text-primary">{event.ageRestriction}+ Jahre</div>
-                </div>
+            <div className="flex items-center">
+              <div className="mr-4">
+                <Icon name="time" size={24} color="#d32f2f" />
               </div>
-            )}
+              <div className="flex-1">
+                <div className="text-sm text-text-secondary">Alter</div>
+                <div className="font-medium text-text-primary">{event.ageRestriction}+ Jahre</div>
+              </div>
+            </div>
 
             {event.capacity && (
               <div className="flex items-center">
-                <div className="text-2xl mr-4">📊</div>
+                <div className="mr-4">
+                  <Icon name="people" size={24} color="#d32f2f" />
+                </div>
                 <div className="flex-1">
                   <div className="text-sm text-text-secondary">Kapazität</div>
                   <div className="font-medium text-text-primary">

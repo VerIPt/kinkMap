@@ -2,6 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Icon, StarRating } from '@/components/ui/icon';
 import { VENUE_CATEGORIES, MOCK_VENUES } from '@/lib/mock-data';
 
 interface FilterModalProps {
@@ -123,7 +124,7 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
         {/* Modal Header */}
         <div className="flex justify-between items-center p-4 bg-background-secondary border-b border-border flex-shrink-0">
           <Button variant="ghost" size="sm" onClick={onClose} className="text-primary">
-            ✕
+            <Icon name="close" size={20} color="#d32f2f" />
           </Button>
           <h2 className="text-lg font-semibold text-text-primary">Filter</h2>
           <Button variant="ghost" size="sm" onClick={handleReset} className="text-primary">
@@ -201,7 +202,9 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
                         ? 'bg-primary border-primary text-white'
                         : 'border-border'
                     }`}>
-                      {filters.orientations.includes(orientation.id) && '✓'}
+                      {filters.orientations.includes(orientation.id) && (
+                        <Icon name="check" size={12} color="white" />
+                      )}
                     </div>
                     <span className="text-text-primary">{orientation.label}</span>
                   </label>
@@ -217,13 +220,19 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
                   <button
                     key={rating}
                     onClick={() => setFilters(prev => ({ ...prev, minRating: rating }))}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${
                       filters.minRating === rating
                         ? 'bg-primary text-white'
                         : 'bg-background-tertiary text-text-secondary border border-border hover:border-border-light'
                     }`}
                   >
-                    {rating === 0 ? 'Alle' : `${rating}+ ★`}
+                    {rating === 0 ? (
+                      'Alle'
+                    ) : (
+                      <>
+                        {rating}+ <StarRating rating={1} maxStars={1} size={14} color={filters.minRating === rating ? "#ffffff" : "#feca57"} />
+                      </>
+                    )}
                   </button>
                 ))}
               </div>
@@ -245,7 +254,9 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
                       ? 'bg-primary border-primary text-white'
                       : 'border-border'
                   }`}>
-                    {filters.isOpenNow && '✓'}
+                    {filters.isOpenNow && (
+                      <Icon name="check" size={12} color="white" />
+                    )}
                   </div>
                   <span className="text-text-primary">Jetzt geöffnet</span>
                 </label>
@@ -262,7 +273,9 @@ export function FilterModal({ isOpen, onClose, onApplyFilters }: FilterModalProp
                       ? 'bg-primary border-primary text-white'
                       : 'border-border'
                   }`}>
-                    {filters.hasEventsToday && '✓'}
+                    {filters.hasEventsToday && (
+                      <Icon name="check" size={12} color="white" />
+                    )}
                   </div>
                   <span className="text-text-primary">Events heute</span>
                 </label>

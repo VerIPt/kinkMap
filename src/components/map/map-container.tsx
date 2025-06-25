@@ -2,12 +2,31 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { MOCK_VENUES, MOCK_EVENTS } from '@/lib/mock-data';
 import { Venue, Event } from '@/lib/types';
+import { Icon } from '@/components/ui/icon';
 
 interface MapContainerProps {
   venues?: Venue[];
   center?: [number, number];
   zoom?: number;
 }
+
+// Helper function außerhalb der Komponente
+const getCategoryIcon = (categoryName: string): string => {
+  const iconMap: { [key: string]: string } = {
+    'pornokinos': 'kino',
+    'bars': 'bar', 
+    'sexshops': 'sexshop',
+    'swingerclubs': 'swingerclub',
+    'fetischclubs': 'bdsm',
+    'clubs': 'club',
+    'gloryholes': 'community',
+    'bdsm-studios': 'bdsm',
+    'saunas': 'sauna',
+    'dungeons': 'bdsm',
+    'adult-theaters': 'theater'
+  };
+  return iconMap[categoryName] || 'haus';
+};
 
 export function MapContainer({ 
   venues = MOCK_VENUES, 
@@ -19,6 +38,7 @@ export function MapContainer({
   const markersRef = useRef<L.Marker[]>([]);
   const [showEvents, setShowEvents] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   // Marker löschen
   const clearMarkers = useCallback(() => {
@@ -54,13 +74,14 @@ export function MapContainer({
 
     dataToShow.forEach((venue) => {
       const venueEvents = showEvents ? eventsData.filter(e => e.venue.id === venue.id) : [];
+      const iconName = getCategoryIcon(venue.category.name);
       
       const createIcon = () => {
         if (showEvents) {
-          // Event-Icon (rötlicher mit Event-Symbol)
+          // Event-Icon (rot mit grauem Container und Event-Anzahl)
           return L.divIcon({
             html: `<div style="
-              background: #d32f2f;
+              background: #2a2a2a;
               color: white;
               width: 40px;
               height: 40px;
@@ -68,43 +89,35 @@ export function MapContainer({
               display: flex;
               align-items: center;
               justify-content: center;
-              font-size: 18px;
-              border: 3px solid #ff6b6b;
-              box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+              font-size: 20px;
+              border: 2px solid #d32f2f;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.3);
               position: relative;
-            ">🎉<div style="
-              position: absolute;
-              top: -5px;
-              right: -5px;
-              background: #ff6b6b;
-              width: 16px;
-              height: 16px;
-              border-radius: 50%;
-              font-size: 10px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            ">${venueEvents.length}</div></div>`,
+            ">
+              <img src="/images/icons/${iconName}.svg" 
+                   style="width: 20px; height: 20px; filter: brightness(0) saturate(100%) invert(23%) sepia(94%) saturate(7467%) hue-rotate(354deg) brightness(87%) contrast(117%);" />
+              <div style="
+                position: absolute;
+                top: -4px;
+                right: -4px;
+                background: #d32f2f;
+                color: white;
+                border-radius: 50%;
+                width: 18px;
+                height: 18px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                font-weight: bold;
+              ">${venueEvents.length}</div>
+            </div>`,
             className: 'custom-event-marker',
             iconSize: [40, 40],
             iconAnchor: [20, 20]
           });
         } else {
-          // Standard Venue-Icon
-          const iconEmojis: { [key: string]: string } = {
-            'pornokinos': '🎬',
-            'bars': '🍸',
-            'sexshops': '🛍️',
-            'swingerclubs': '💑',
-            'fetischclubs': '🎭',
-            'clubs': '🎪',
-            'gloryholes': '🕳️',
-            'bdsm-studios': '🏠',
-            'saunas': '🧖‍♂️',
-            'dungeons': '⛓️',
-            'adult-theaters': '🎭'
-          };
-
+          // Standard Venue-Icon (rot ohne Container)
           return L.divIcon({
             html: `<div style="
               background: #d32f2f;
@@ -118,7 +131,10 @@ export function MapContainer({
               font-size: 20px;
               border: 2px solid white;
               box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            ">${iconEmojis[venue.category.name] || '📍'}</div>`,
+            ">
+              <img src="/images/icons/${iconName}.svg" 
+                   style="width: 20px; height: 20px; filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);" />
+            </div>`,
             className: 'custom-venue-marker',
             iconSize: [40, 40],
             iconAnchor: [20, 20]
@@ -126,104 +142,89 @@ export function MapContainer({
         }
       };
 
-      const marker = L.marker([venue.location.lat, venue.location.lng], {
-        icon: createIcon()
-      });
+      const marker = L.marker([venue.location.lat, venue.location.lng], { 
+        icon: createIcon() 
+      }).addTo(mapInstanceRef.current!);
 
-      // TypeScript-sicherer Zugriff
-      if (mapInstanceRef.current) {
-        marker.addTo(mapInstanceRef.current);
-      }
-
-      // Popup-Inhalt je nach Modus
-      const popupContent = showEvents ? 
-        // Event-Popup
-        `<div style="font-family: system-ui; min-width: 250px; max-width: 300px;">
-          <h3 style="margin: 0 0 8px 0; color: #d32f2f; font-size: 16px;">${venue.name}</h3>
-          <p style="margin: 0 0 12px 0; color: #666; font-size: 14px;">${venue.category.displayName}</p>
-          <div style="background: #f5f5f5; padding: 8px; border-radius: 6px; margin-bottom: 8px;">
-            <strong style="color: #d32f2f; font-size: 14px;">Events (${venueEvents.length}):</strong>
-            ${venueEvents.map(event => `
-              <div style="margin-top: 6px; padding: 6px; background: white; border-radius: 4px; border-left: 3px solid #d32f2f;">
-                <div style="font-weight: 600; font-size: 13px;">${event.title}</div>
-                <div style="font-size: 12px; color: #666;">${event.timing.startsAt.toLocaleDateString('de-DE')} um ${event.timing.startsAt.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} Uhr</div>
-              </div>
-            `).join('')}
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #888; margin-bottom: 8px;">
-            <span>${venue.rating.avg} ⭐ (${venue.rating.count})</span>
-            <span>${venue.distance}km</span>
-          </div>
-          <button onclick="window.location.href='/venue/${venue.slug}'" 
-                  style="
-                    width: 100%;
-                    background: #d32f2f;
-                    color: white;
-                    border: none;
-                    padding: 8px;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-size: 14px;
-                  ">
-            Venue Details
-          </button>
-        </div>` :
-        // Standard Venue-Popup
-        `<div style="font-family: system-ui; min-width: 200px;">
-          <h3 style="margin: 0 0 8px 0; color: #d32f2f; font-size: 16px;">${venue.name}</h3>
-          <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;">${venue.category.displayName}</p>
-          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #888;">
-            <span>${venue.rating.avg} ⭐ (${venue.rating.count})</span>
-            <span>${venue.distance}km</span>
-          </div>
-          <button onclick="window.location.href='/venue/${venue.slug}'" 
-                  style="
-                    width: 100%;
-                    background: #d32f2f;
-                    color: white;
-                    border: none;
-                    padding: 8px;
-                    border-radius: 6px;
-                    margin-top: 8px;
-                    cursor: pointer;
-                    font-size: 14px;
-                  ">
-            Details ansehen
-          </button>
-        </div>`;
+      // Popup-Inhalt mit Icons statt Emojis
+      const popupContent = `<div style="font-family: system-ui; min-width: 200px;">
+        <h3 style="margin: 0 0 8px 0; color: #d32f2f; font-size: 16px;">${venue.name}</h3>
+        <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;">${venue.category.displayName}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #888;">
+          <span>${venue.rating.avg} ⭐ (${venue.rating.count})</span>
+          <span>${venue.distance}km</span>
+        </div>
+        <button onclick="window.location.href='/venue/${venue.slug}'" 
+                style="
+                  width: 100%;
+                  background: #d32f2f;
+                  color: white;
+                  border: none;
+                  padding: 8px;
+                  border-radius: 6px;
+                  margin-top: 8px;
+                  cursor: pointer;
+                  font-size: 14px;
+                ">
+          Details ansehen
+        </button>
+      </div>`;
 
       marker.bindPopup(popupContent);
       markersRef.current.push(marker);
     });
-  }, [showEvents, venues, clearMarkers]);
+  }, [venues, showEvents, clearMarkers]);
 
   // Map initialisieren
   useEffect(() => {
     const initializeMap = async () => {
       if (!mapRef.current || mapInstanceRef.current || typeof window === 'undefined') return;
 
-      const L = await import('leaflet');
-      
-      // Fix für Leaflet Icons in Next.js
-      delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
-      L.Icon.Default.mergeOptions({
-        iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-        iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-      });
+      try {
+        const L = await import('leaflet');
+        
+        // Leaflet CSS dynamisch laden wenn nicht vorhanden
+        if (!document.querySelector('link[href*="leaflet"]')) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+          document.head.appendChild(link);
+          
+          // Warten bis CSS geladen ist
+          await new Promise(resolve => {
+            link.onload = resolve;
+            setTimeout(resolve, 1000); // Fallback
+          });
+        }
+        
+        // Fix für Leaflet Icons in Next.js
+        delete (L.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+        L.Icon.Default.mergeOptions({
+          iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+          iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+          shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        });
 
-      // Karte initialisieren
-      const map = L.map(mapRef.current).setView(center, zoom);
+        // Karte initialisieren
+        const map = L.map(mapRef.current).setView(center, zoom);
 
-      // OpenStreetMap Tiles hinzufügen
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
+        // OpenStreetMap Tiles hinzufügen
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-      mapInstanceRef.current = map;
+        mapInstanceRef.current = map;
+        setIsMapLoaded(true);
 
-      // Initial markers hinzufügen
-      addMarkers();
+        // Karte invalidieren nach kurzer Verzögerung (wichtig für korrekte Darstellung)
+        setTimeout(() => {
+          map.invalidateSize();
+          addMarkers();
+        }, 100);
+
+      } catch (error) {
+        console.error('Error initializing map:', error);
+      }
     };
 
     initializeMap();
@@ -233,16 +234,31 @@ export function MapContainer({
         clearMarkers();
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
+        setIsMapLoaded(false);
       }
     };
-  }, [center, zoom, addMarkers, clearMarkers]);
+  }, [center, zoom, clearMarkers, addMarkers]);
 
   // Marker aktualisieren wenn Modus wechselt
   useEffect(() => {
-    if (mapInstanceRef.current) {
+    if (mapInstanceRef.current && isMapLoaded) {
       addMarkers();
     }
-  }, [addMarkers]);
+  }, [addMarkers, isMapLoaded]);
+
+  // Window resize handler für Karte
+  useEffect(() => {
+    const handleResize = () => {
+      if (mapInstanceRef.current) {
+        setTimeout(() => {
+          mapInstanceRef.current!.invalidateSize();
+        }, 100);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const allEventCount = MOCK_EVENTS.length;
   const venuesWithEventsCount = venues.filter(venue => 
@@ -250,22 +266,30 @@ export function MapContainer({
   ).length;
 
   return (
-    <>
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-        crossOrigin=""
+    <div className="relative w-full h-full">
+      {/* Map Container mit expliziter Größe */}
+      <div 
+        ref={mapRef} 
+        className="w-full h-full min-h-[400px]"
+        style={{ 
+          width: '100%', 
+          height: '100%',
+          minHeight: '400px',
+          position: 'relative'
+        }}
       />
       
-      {/* Switch-Kontrolle */}
-      <div className="relative">
-        {/* Desktop Switch */}
-        <div className="hidden md:block absolute top-4 left-4 z-[1000] bg-gray-900 text-white rounded-lg shadow-lg p-3 border border-gray-700">
-          <div className="flex items-center space-x-3">
-            <span className={`text-sm font-medium ${!showEvents ? 'text-white' : 'text-gray-400'}`}>
-              Alle Venues ({venues.length})
-            </span>
+      {/* Loading Indicator */}
+      {!isMapLoaded && (
+        <div className="absolute inset-0 bg-background-secondary flex items-center justify-center">
+          <div className="text-text-secondary">Karte wird geladen...</div>
+        </div>
+      )}
+      
+      {/* Controls */}
+      <div className="absolute top-4 right-4 z-[1000] bg-gray-900 text-white rounded-lg shadow-lg border border-gray-700 p-3">
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
             <button
               onClick={() => setShowEvents(!showEvents)}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
@@ -299,14 +323,12 @@ export function MapContainer({
             <span className="text-sm font-medium">
               {showEvents ? `Events (${allEventCount})` : `Venues (${venues.length})`}
             </span>
-            <svg
-              className={`w-4 h-4 transition-transform ${showMobileMenu ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <Icon 
+              name="close" 
+              size={16} 
+              color="white"
+              className={`transition-transform ${showMobileMenu ? 'rotate-45' : ''}`}
+            />
           </button>
 
           {/* Mobile Dropdown Menu */}
@@ -353,20 +375,14 @@ export function MapContainer({
                     </span>
                   </div>
                   <div className="text-xs text-gray-400 mt-1">
-                    {venuesWithEventsCount} Venues mit Events
+                    Events in Venues anzeigen
                   </div>
                 </button>
               </div>
             </div>
           )}
         </div>
-
-        <div 
-          ref={mapRef} 
-          className="w-full h-full min-h-[400px] rounded-lg"
-          style={{ background: '#f0f0f0' }}
-        />
       </div>
-    </>
+    </div>
   );
 }

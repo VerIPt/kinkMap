@@ -5,7 +5,8 @@ import Image from 'next/image';
 import { Header } from '@/components/layout/header';
 import { Card } from '@/components/ui/card';
 import { MOCK_VENUES, MOCK_EVENTS } from '@/lib/mock-data';
-import { formatPrice, getStarRating } from '@/lib/utils';
+import { formatPrice } from '@/lib/utils';
+import { Icon, StarRating } from '@/components/ui/icon';
 
 export default function VenueDetail() {
   const params = useParams();
@@ -17,6 +18,23 @@ export default function VenueDetail() {
   }
 
   const venueEvents = MOCK_EVENTS.filter(e => e.venue.id === venue.id);
+
+  const getCategoryIcon = (categoryName: string): string => {
+    const iconMap: { [key: string]: string } = {
+      'pornokinos': 'cinema',
+      'bars': 'bar',
+      'sexshops': 'sexshop',
+      'swingerclubs': 'swingerclub',
+      'fetischclubs': 'bdsm',
+      'clubs': 'club',
+      'gloryholes': 'community',
+      'bdsm-studios': 'bdsm',
+      'saunas': 'sauna',
+      'dungeons': 'bdsm',
+      'adult-theaters': 'theater'
+    };
+    return iconMap[categoryName] || 'house';
+  };
 
   return (
     <div className="min-h-screen bg-background-primary">
@@ -47,8 +65,12 @@ export default function VenueDetail() {
         <div className="absolute inset-0 bg-black/30"></div>
         
         {/* Center Icon */}
-        <div className="absolute inset-0 flex items-center justify-center text-6xl">
-          {venue.category.icon}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Icon 
+            name={getCategoryIcon(venue.category.name)} 
+            size={60} 
+            color="white"
+          />
         </div>
       </div>
 
@@ -60,12 +82,15 @@ export default function VenueDetail() {
             {venue.category.displayName}
           </div>
           <div className="flex items-center gap-2 mb-4">
-            <span className="text-warning">{getStarRating(venue.rating.avg)}</span>
+            <StarRating rating={venue.rating.avg} size={16} color="#feca57" />
             <span className="text-text-secondary text-sm">
               {venue.rating.avg} ({venue.rating.count} Bewertungen)
             </span>
             {venue.isVerified && (
-              <span className="text-success text-sm ml-2">✓ Verifiziert</span>
+              <span className="text-success text-sm ml-2 flex items-center gap-1">
+                <Icon name="check" size={14} color="#4ecdc4" />
+                Verifiziert
+              </span>
             )}
           </div>
         </div>
@@ -107,6 +132,13 @@ export default function VenueDetail() {
           <h3 className="font-semibold text-text-primary mb-3">Informationen</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-background-tertiary p-3 rounded-lg">
+              <div className="text-sm text-text-secondary mb-1">Bewertung</div>
+              <div className="font-medium text-text-primary flex items-center gap-1">
+                <StarRating rating={venue.rating.avg} size={14} color="#feca57" />
+                {venue.rating.avg}
+              </div>
+            </div>
+            <div className="bg-background-tertiary p-3 rounded-lg">
               <div className="text-sm text-text-secondary mb-1">Öffnungszeiten</div>
               <div className="font-medium text-text-primary">
                 {Object.entries(venue.openingHours).find(([, hours]) => hours !== 'closed')?.[1] || 'Siehe Website'}
@@ -137,11 +169,18 @@ export default function VenueDetail() {
               available && (
                 <span 
                   key={feature}
-                  className="bg-success/20 text-success px-3 py-1 rounded-full text-sm font-medium"
+                  className="bg-success/20 text-success px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1"
                 >
-                  {feature === 'parking' ? '🅿️ Parkplatz' : 
-                   feature === 'wheelchair' ? '♿ Barrierefrei' :
-                   feature === 'lockers' ? '🔒 Schließfächer' : feature}
+                  <Icon 
+                    name={feature === 'parking' ? 'parking' : 
+                          feature === 'wheelchair' ? 'accessibility' :
+                          feature === 'lockers' ? 'lockers' : 'check'} 
+                    size={14} 
+                    color="#4ecdc4" 
+                  />
+                  {feature === 'parking' ? 'Parkplatz' : 
+                   feature === 'wheelchair' ? 'Barrierefrei' :
+                   feature === 'lockers' ? 'Schließfächer' : feature}
                 </span>
               )
             ))}
@@ -154,13 +193,15 @@ export default function VenueDetail() {
             <h3 className="font-semibold text-text-primary mb-3">Kontakt</h3>
             <div className="space-y-2">
               {venue.contact.website && (
-                <div className="text-primary cursor-pointer hover:underline">
-                  🌐 {venue.contact.website}
+                <div className="text-primary cursor-pointer hover:underline flex items-center gap-2">
+                  <Icon name="website" size={16} color="#d32f2f" />
+                  {venue.contact.website}
                 </div>
               )}
               {venue.contact.instagram && (
-                <div className="text-primary cursor-pointer hover:underline">
-                  📱 {venue.contact.instagram}
+                <div className="text-primary cursor-pointer hover:underline flex items-center gap-2">
+                  <Icon name="instagram" size={16} color="#d32f2f" />
+                  {venue.contact.instagram}
                 </div>
               )}
             </div>

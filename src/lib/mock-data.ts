@@ -6,7 +6,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'pornokinos',
     displayName: 'Pornokinos',
     description: 'Adult Kinos und Theater',
-    icon: '🎬',
+    icon: 'cinema',
     color: '#d32f2f',
   },
   {
@@ -14,7 +14,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'bars',
     displayName: 'Bars',
     description: 'Gay/Hetero/Trans/LGBTQ+/Kink Bars',
-    icon: '🍸',
+    icon: 'bar',
     color: '#4ecdc4',
   },
   {
@@ -22,7 +22,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'sexshops',
     displayName: 'Sexshops',
     description: 'Adult Stores und Shops',
-    icon: '🛍️',
+    icon: 'sexshop',
     color: '#45b7d1',
   },
   {
@@ -30,7 +30,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'swingerclubs',
     displayName: 'Swingerclubs',
     description: 'Clubs für Paare und Singles',
-    icon: '💑',
+    icon: 'swingerclub',
     color: '#ff6b6b',
   },
   {
@@ -38,7 +38,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'fetischclubs',
     displayName: 'Fetischclubs',
     description: 'Fetisch- und BDSM-Clubs (z.B. KitKat)',
-    icon: '🎭',
+    icon: 'bdsm',
     color: '#96ceb4',
   },
   {
@@ -46,7 +46,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'clubs',
     displayName: 'Clubs',
     description: 'Gay/Hetero/Trans/LGBTQ+/Kink Clubs',
-    icon: '🎪',
+    icon: 'club',
     color: '#feca57',
   },
   {
@@ -54,7 +54,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'gloryholes',
     displayName: 'Glory Holes',
     description: 'Anonyme Begegnungen',
-    icon: '🕳️',
+    icon: 'community',
     color: '#ff9ff3',
   },
   {
@@ -62,7 +62,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'bdsm-studios',
     displayName: 'BDSM Studios',
     description: 'Professionelle BDSM Studios',
-    icon: '🏠',
+    icon: 'bdsm',
     color: '#a55eea',
   },
   {
@@ -70,7 +70,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'saunas',
     displayName: 'Saunas/Bathhouses',
     description: 'Gay-Szene Saunas und Bäder',
-    icon: '🧖‍♂️',
+    icon: 'sauna',
     color: '#26de81',
   },
   {
@@ -78,7 +78,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'dungeons',
     displayName: 'Dungeons/Play Spaces',
     description: 'Private BDSM-Räume',
-    icon: '⛓️',
+    icon: 'bdsm',
     color: '#fd79a8',
   },
   {
@@ -86,7 +86,7 @@ export const VENUE_CATEGORIES: VenueCategory[] = [
     name: 'adult-theaters',
     displayName: 'Adult Theaters/Shows',
     description: 'Burlesque, Strip Shows, etc.',
-    icon: '🎭',
+    icon: 'theater',
     color: '#fdcb6e',
   },
 ];

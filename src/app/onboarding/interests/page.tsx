@@ -1,12 +1,13 @@
 'use client';
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
 
 const CATEGORIES = [
-	{ id: 'explore', label: 'Erkunden & Shoppen', icon: '🛍️', active: true },
-	{ id: 'nightlife', label: 'Nightlife & Events', icon: '🎪', active: false },
-	{ id: 'private', label: 'Private Experiences', icon: '🏠', active: false },
-	{ id: 'community', label: 'Community Spaces', icon: '👥', active: false },
+	{ id: 'explore', label: 'Erkunden & Shoppen', icon: 'sexshop', active: true },
+	{ id: 'nightlife', label: 'Nightlife & Events', icon: 'mask', active: false },
+	{ id: 'private', label: 'Private Experiences', icon: 'haus', active: false },
+	{ id: 'community', label: 'Community Spaces', icon: 'community', active: false },
 ];
 
 export default function OnboardingInterests() {
@@ -58,7 +59,15 @@ export default function OnboardingInterests() {
 								}
                 `}
 							>
-								<div className="text-3xl mb-2">{category.icon}</div>
+								<div className="mb-2 flex justify-center">
+									<Icon
+										name={category.icon}
+										size={40}
+										color="#888888"
+										containerColor="#d32f2f"
+										showContainer={true}
+									/>
+								</div>
 								<div className="font-medium text-sm">
 									{category.label}
 								</div>

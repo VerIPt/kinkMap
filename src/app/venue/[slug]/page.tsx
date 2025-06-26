@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { MOCK_VENUES, MOCK_EVENTS } from '@/lib/mock-data';
 import { formatPrice } from '@/lib/utils';
 import { Icon, StarRating } from '@/components/ui/icon';
+import { Car, Accessibility, Lock, Globe, Instagram } from 'lucide-react';
 
 export default function VenueDetail() {
   const params = useParams();
@@ -171,16 +172,24 @@ export default function VenueDetail() {
                   key={feature}
                   className="bg-success/20 text-success px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1"
                 >
-                  <Icon 
-                    name={feature === 'parking' ? 'parking' : 
-                          feature === 'wheelchair' ? 'accessibility' :
-                          feature === 'lockers' ? 'lockers' : 'check'} 
-                    size={14} 
-                    color="#4ecdc4" 
-                  />
-                  {feature === 'parking' ? 'Parkplatz' : 
-                   feature === 'wheelchair' ? 'Barrierefrei' :
-                   feature === 'lockers' ? 'Schließfächer' : feature}
+                  {feature === 'parking' ? (
+                    <>
+                      <Car size={14} />
+                      Parkplatz
+                    </>
+                  ) : feature === 'wheelchair' ? (
+                    <>
+                      <Accessibility size={14} />
+                      Barrierefrei
+                    </>
+                  ) : feature === 'lockers' ? (
+                    <>
+                      <Lock size={14} />
+                      Schließfächer
+                    </>
+                  ) : (
+                    `✓ ${feature}`
+                  )}
                 </span>
               )
             ))}
@@ -194,13 +203,13 @@ export default function VenueDetail() {
             <div className="space-y-2">
               {venue.contact.website && (
                 <div className="text-primary cursor-pointer hover:underline flex items-center gap-2">
-                  <Icon name="website" size={16} color="#d32f2f" />
+                  <Globe size={16} />
                   {venue.contact.website}
                 </div>
               )}
               {venue.contact.instagram && (
                 <div className="text-primary cursor-pointer hover:underline flex items-center gap-2">
-                  <Icon name="instagram" size={16} color="#d32f2f" />
+                  <Instagram size={16} />
                   {venue.contact.instagram}
                 </div>
               )}

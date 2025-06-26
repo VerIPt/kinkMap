@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { MOCK_EVENTS } from '@/lib/mock-data';
 import { formatDate, formatPrice } from '@/lib/utils';
 import { Icon } from '@/components/ui/icon';
+import { DollarSign, Users, Shirt, Calendar } from 'lucide-react';
 
 export default function EventDetail() {
   const params = useParams();
@@ -112,7 +113,7 @@ export default function EventDetail() {
           <div className="space-y-4">
             <div className="flex items-center">
               <div className="mr-4">
-                <Icon name="money" size={24} color="#d32f2f" />
+                <DollarSign size={24} className="text-primary" />
               </div>
               <div className="flex-1">
                 <div className="text-sm text-text-secondary">Eintritt</div>
@@ -124,7 +125,7 @@ export default function EventDetail() {
 
             <div className="flex items-center">
               <div className="mr-4">
-                <Icon name="people" size={24} color="#d32f2f" />
+                <Users size={24} className="text-primary" />
               </div>
               <div className="flex-1">
                 <div className="text-sm text-text-secondary">Für</div>
@@ -139,7 +140,7 @@ export default function EventDetail() {
             {event.dressCode && (
               <div className="flex items-center">
                 <div className="mr-4">
-                  <Icon name="dresscode" size={24} color="#d32f2f" />
+                  <Shirt size={24} className="text-primary" />
                 </div>
                 <div className="flex-1">
                   <div className="text-sm text-text-secondary">Dress Code</div>
@@ -150,7 +151,7 @@ export default function EventDetail() {
 
             <div className="flex items-center">
               <div className="mr-4">
-                <Icon name="time" size={24} color="#d32f2f" />
+                <Calendar size={24} className="text-primary" />
               </div>
               <div className="flex-1">
                 <div className="text-sm text-text-secondary">Alter</div>
@@ -161,7 +162,7 @@ export default function EventDetail() {
             {event.capacity && (
               <div className="flex items-center">
                 <div className="mr-4">
-                  <Icon name="people" size={24} color="#d32f2f" />
+                  <Users size={24} className="text-primary" />
                 </div>
                 <div className="flex-1">
                   <div className="text-sm text-text-secondary">Kapazität</div>

@@ -1,10 +1,16 @@
 'use client';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 export default function OnboardingLocation() {
   const [location, setLocation] = useState('');
+  const router = useRouter();
+
+  const handleContinue = () => {
+    router.push('/onboarding/interests');
+  };
 
   return (
     <div className="min-h-screen bg-background-primary flex flex-col">
@@ -50,7 +56,7 @@ export default function OnboardingLocation() {
           <Button 
             className="w-full h-12 text-lg font-semibold"
             variant="primary"
-            onClick={() => window.location.href = '/onboarding/interests'}
+            onClick={handleContinue}
           >
             Weiter
           </Button>

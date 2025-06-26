@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 export interface IconProps {
   name: string;
@@ -159,7 +160,7 @@ export function Icon({
   }
 
   const iconElement = (
-    <img
+    <Image
       src={iconPath}
       alt={name}
       width={size}
